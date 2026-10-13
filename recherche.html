@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recherche DEMS 2027</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f6f7f9; --surface: #ffffff; --ink: #1d2433; --muted: #5b6474; --line: #dde1e8;
+  --accent: #1f4e79; --accent-soft: #e5eef7; --mark: #ffe58a; --chip: #eef1f5; --shadow: 0 1px 2px rgba(16,24,40,.06);
+  --k-carte: #1f4e79; --k-val: #2e7d32; --k-cr: #8a4b00; --k-box: #5b4b8a; --k-txt: #4a5568; --k-fig: #7a5c00; --k-tab: #00695c;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --bg: #12151b; --surface: #1b2029; --ink: #e6e9ef; --muted: #9aa3b2; --line: #2c3340;
+  --accent: #8cb8e6; --accent-soft: #223246; --mark: #6b5a12; --chip: #252c38; --shadow: none;
+  --k-carte: #8cb8e6; --k-val: #7fc98a; --k-cr: #e2a35c; --k-box: #b3a4e6; --k-txt: #b5bdc9; --k-fig: #d9bf6a; --k-tab: #6fd0c0;
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #12151b; --surface: #1b2029; --ink: #e6e9ef; --muted: #9aa3b2; --line: #2c3340;
+  --accent: #8cb8e6; --accent-soft: #223246; --mark: #6b5a12; --chip: #252c38; --shadow: none;
+  --k-carte: #8cb8e6; --k-val: #7fc98a; --k-cr: #e2a35c; --k-box: #b3a4e6; --k-txt: #b5bdc9; --k-fig: #d9bf6a; --k-tab: #6fd0c0;
+}
+* { box-sizing: border-box; }
+:root[data-theme="light"] { color-scheme: light; }
+select option, select optgroup { background: var(--surface); color: var(--ink); }
+input::placeholder { color: var(--muted); opacity: 1; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Calibri, sans-serif; }
+header { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.top { display: flex; align-items: center; gap: 12px; padding: 12px 0 8px; }
+.top h1 { font-size: 17px; margin: 0; color: var(--accent); white-space: nowrap; }
+.searchbox { position: relative; flex: 1; }
+#q { width: 100%; font-size: 17px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); outline: none; }
+#q:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+#sugg { position: absolute; left: 0; right: 0; top: 100%; margin-top: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,.12); display: none; overflow: hidden; }
+#sugg div { padding: 7px 12px; cursor: pointer; font-size: 14px; }
+#sugg div:hover, #sugg div.on { background: var(--accent-soft); }
+#sugg small { color: var(--muted); }
+.icon-btn { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px; padding: 7px 10px; cursor: pointer; font-size: 14px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 0 0 10px; font-size: 13px; }
+.filters select { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px; padding: 5px 8px; font-size: 13px; max-width: 230px; }
+.chip { border: 1px solid var(--line); background: var(--chip); color: var(--ink); border-radius: 999px; padding: 3px 10px; cursor: pointer; user-select: none; }
+.chip:hover { border-color: var(--accent); }
+.chip.on { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+.chip.reset { background: none; color: var(--accent); border-style: dashed; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; background: var(--bg); color: var(--ink); padding: 5px 10px; cursor: pointer; font-size: 13px; }
+.seg button.on { background: var(--accent); color: var(--surface); }
+main { padding: 14px 0 60px; }
+#status { color: var(--muted); font-size: 13px; margin: 2px 0 12px; }
+.group h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 22px 0 8px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.blk { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--kc, var(--accent)); border-radius: 10px; padding: 10px 14px; margin: 0 0 10px; box-shadow: var(--shadow); }
+.blk .hd { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.badge { font-size: 11px; font-weight: 600; color: var(--kc); border: 1px solid var(--kc); border-radius: 999px; padding: 0 8px; white-space: nowrap; }
+.blk .ti { font-weight: 650; font-size: 15.5px; }
+.blk .bc { color: var(--muted); font-size: 12.5px; margin: 2px 0 6px; }
+.blk .bc a { color: var(--accent); text-decoration: none; }
+.blk .bc a:hover { text-decoration: underline; }
+.blk .tx { white-space: pre-wrap; font-size: 14.5px; }
+.blk table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 4px; }
+.blk td, .blk th { border: 1px solid var(--line); padding: 4px 8px; vertical-align: top; text-align: left; white-space: pre-wrap; }
+.blk th { background: var(--accent-soft); font-weight: 600; }
+.blk td:first-child { font-weight: 600; width: 26%; }
+.blk .tools { display: flex; gap: 10px; margin-top: 6px; font-size: 12.5px; }
+.blk .tools button, .blk .tools a { background: none; border: 0; color: var(--accent); cursor: pointer; padding: 0; font-size: 12.5px; text-decoration: none; }
+.blk .tools a:hover, .blk .tools button:hover { text-decoration: underline; }
+mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1px; }
+.more { display: block; margin: 12px auto; }
+.help { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; font-size: 14px; }
+.help code { background: var(--chip); padding: 1px 5px; border-radius: 4px; }
+.k-Carte { --kc: var(--k-carte); } .k-Valeurs { --kc: var(--k-val); } .k-CR { --kc: var(--k-cr); } .k-Box { --kc: var(--k-box); }
+.k-Texte { --kc: var(--k-txt); } .k-Figure { --kc: var(--k-fig); } .k-Tableau { --kc: var(--k-tab); }
+.blk .ti.pv { cursor: pointer; }
+.blk .ti.pv:hover { text-decoration: underline; }
+#ov { position: fixed; inset: 0; background: rgba(10,14,22,.45); z-index: 20; display: none; }
+#pv { position: fixed; top: 0; right: 0; bottom: 0; width: min(820px, 100%); background: var(--bg); z-index: 21; display: none; flex-direction: column; box-shadow: -8px 0 30px rgba(0,0,0,.25); }
+#pv.open, #ov.open { display: flex; }
+#pv .pvh { background: var(--surface); border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; flex-direction: column; gap: 6px; }
+#pv .pvh .r1 { display: flex; align-items: center; gap: 10px; }
+#pv .pvh .r1 a.icon-btn { text-decoration: none; }
+#pv .pvh .r1 b { flex: 1; font-size: 15.5px; color: var(--accent); }
+#pv .pvh .r2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+#pv .pvh select { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px; padding: 4px 8px; font-size: 13px; max-width: 100%; flex: 1; min-width: 180px; }
+#pv .pvb { overflow-y: auto; padding: 8px 16px 60px; flex: 1; }
+#pv h3.H1 { font-size: 18px; color: var(--accent); margin: 26px 0 8px; border-bottom: 2px solid var(--accent-soft); padding-bottom: 4px; }
+#pv h3.H2 { font-size: 15.5px; color: var(--accent); margin: 18px 0 6px; }
+#pv .blk { box-shadow: none; }
+#pv .blk.hit { border-color: var(--k-cr); }
+#pv .blk.target { outline: 3px solid var(--mark); outline-offset: 2px; }
+#pv .blk .bc, #pv .blk .tools a { display: none; }
+.figs { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 6px; }
+.figs img { max-height: 220px; max-width: 100%; border-radius: 6px; border: 1px solid var(--line); background: #fff; cursor: zoom-in; }
+#pv .figs img { max-height: 460px; }
+#lb { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.85); display: none; align-items: center; justify-content: center; padding: 16px; cursor: zoom-out; }
+#lb.open { display: flex; }
+#lb img { max-width: 100%; max-height: 100%; border-radius: 6px; background: #fff; }
+@media (max-width: 640px) { .top h1 { display: none; } .blk td:first-child { width: 34%; } }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top">
+    <h1><a href="index.html" style="color:inherit;text-decoration:none">Révision DEMS 2027</a></h1>
+    <div class="searchbox"><input id="q" type="search" placeholder="Pathologie, signe, mesure…  ex. kyste hydatique, « double contour », appendicite -enfant" autocomplete="off" disabled><div id="sugg"></div></div>
+    <button class="icon-btn" id="theme" title="Thème clair / sombre">◐</button>
+  </div>
+  <div class="filters">
+    <span class="seg" id="mode"><button data-m="fiche" class="on" title="Résultats regroupés par type de bloc">Fiche</button><button data-m="liste" title="Résultats classés par pertinence">Liste</button></span>
+    <select id="fth"><option value="">Tous les thèmes</option></select>
+    <select id="fdoc"><option value="">Tous les documents</option></select>
+    <span id="fcol"></span>
+    <span id="fkind"></span>
+  </div>
+</div></header>
+<main class="wrap">
+  <div id="status">Chargement de l’index…</div>
+  <div id="res"></div>
+</main>
+<div id="ov"></div>
+<div id="lb"><img alt=""></div>
+<aside id="pv" aria-label="Aperçu du document">
+  <div class="pvh">
+    <div class="r1"><b id="pvt"></b><a id="pvo" class="icon-btn" href="#" title="Ouvrir la page du document">Ouvrir la page</a><button class="icon-btn" id="pvx" title="Fermer (Échap)">✕</button></div>
+    <div class="r2"><button class="icon-btn" id="pvp" title="Correspondance précédente">◀</button><span id="pvn"></span><button class="icon-btn" id="pvnx" title="Correspondance suivante">▶</button><select id="pvs" title="Aller à une partie"></select></div>
+  </div>
+  <div class="pvb" id="pvb"></div>
+</aside>
+
+<script>
+'use strict';
+// ---------- utilitaires ----------
+const $ = s => document.querySelector(s);
+const fold = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ').replace(/œ/g, 'oe').replace(/æ/g, 'ae');
+const stem = w => (w.length > 4 && /[sx]$/.test(w)) ? w.slice(0, -1) : w;
+const toks = s => (fold(s).match(/[a-z0-9]+/g) || []).map(stem);
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const store = { get(k, d) { try { const v = localStorage.getItem('dems_' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+                set(k, v) { try { localStorage.setItem('dems_' + k, JSON.stringify(v)); } catch (e) {} } };
+const ORDER = ['Carte', 'Valeurs à retenir', 'Compte rendu type', 'Formulations du service', 'L’essentiel', 'Comprendre', 'Texte', 'Tableau', 'À retenir', 'Pièges', 'Encadré', 'Figure'];
+const KCLASS = k => ({ 'Carte': 'Carte', 'Valeurs à retenir': 'Valeurs', 'Compte rendu type': 'CR', 'Formulations du service': 'CR', 'Texte': 'Texte', 'Figure': 'Figure', 'Tableau': 'Tableau' }[k] || 'Box');
+const KBOOST = { 'Carte': 1.5, 'Valeurs à retenir': 1.35, 'Compte rendu type': 1.2, 'Formulations du service': 1.2, 'L’essentiel': 1.1, 'Tableau': 1.05, 'Texte': 1, 'Comprendre': 0.95, 'À retenir': 1.1, 'Pièges': 1.05, 'Encadré': 1, 'Figure': 0.75 };
+let D, B, INV, VOCAB, NB, AVG, SYN, TITLES, DOCB;
+
+// ---------- chargement ----------
+async function load() {
+  const res = await fetch('search-index.json.gz'); const buf = await res.arrayBuffer();
+  let txt; try { txt = await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text(); } catch (e) { txt = new TextDecoder().decode(buf); }
+  D = JSON.parse(txt); B = D.blocks;
+  // texte de chaque bloc et index inversé (titre ×3, chemin ×1.5, contenu ×1)
+  INV = new Map(); let total = 0;
+  B.forEach((b, i) => {
+    const doc = D.docs[b.d];
+    b.body = b.x != null ? b.x : (b.r || []).map(r => r.join(' — ')).join('\n');
+    b.path = [doc.n, ...(b.h || [])].join(' ');
+    b.fold = fold(b.t + '\n' + b.body);
+    const tf = new Map();
+    const add = (s, w) => toks(s).forEach(t => tf.set(t, (tf.get(t) || 0) + w));
+    add(b.t, 3); add(b.path, 1.5); add(b.body, 1);
+    let len = 0; tf.forEach(v => len += v); b.len = len; total += len;
+    tf.forEach((v, t) => { let a = INV.get(t); if (!a) INV.set(t, a = []); a.push(i, v); });
+  });
+  NB = B.length; AVG = total / NB; VOCAB = [...INV.keys()].sort();
+  DOCB = D.docs.map(() => []); B.forEach((b, i) => DOCB[b.d].push(i));
+  SYN = new Map(); D.syn.forEach(g => { const fs = g.map(x => toks(x).join(' ')); fs.forEach(f => SYN.set(f, fs)); });
+  const seen = new Set(); TITLES = [];
+  B.forEach((b, i) => { if ((b.k === 'Carte' || b.k === 'Valeurs à retenir') && !seen.has(b.t)) { seen.add(b.t); TITLES.push([fold(b.t), b.t, D.docs[b.d].n]); } });
+  initFilters();
+  $('#q').disabled = false; $('#q').value = store.get('q', ''); $('#q').focus();
+  $('#status').textContent = `${D.docs.length} documents · ${NB.toLocaleString('fr-FR')} blocs indexés  · index du ${D.built}`;
+  run();
+}
+
+// ---------- requête ----------
+// Termes reliés par ET ; "phrase exacte" ; -exclusion ; synonymes et abréviations ; préfixe pour les mots de 3 lettres et plus.
+function parseQuery(q) {
+  const phrases = [], excl = [], words = [];
+  q = q.replace(/[«“"]([^»”"]+)[»”"]/g, (m, p) => { phrases.push(fold(p).trim()); return ' '; });
+  q.split(/\s+/).filter(Boolean).forEach(w => { if (w.startsWith('-') && w.length > 1) excl.push(...toks(w.slice(1))); else words.push(w); });
+  // regroupement des synonymes (jusqu'à 4 mots consécutifs)
+  const tk = toks(words.join(' ')); const groups = [];
+  for (let i = 0; i < tk.length;) {
+    let hit = null;
+    for (let n = Math.min(4, tk.length - i); n >= 1; n--) { const f = tk.slice(i, i + n).join(' '); if (SYN.has(f)) { hit = [f, n]; break; } }
+    if (hit) { groups.push(SYN.get(hit[0]).map(s => s.split(' '))); i += hit[1]; }
+    else { groups.push([[tk[i]]]); i++; }
+  }
+  phrases.forEach(p => groups.push([toks(p)]));
+  return { groups, phrases, excl };
+}
+function postings(t, prefix) {
+  const out = new Map(); const exact = INV.get(t);
+  if (exact) for (let j = 0; j < exact.length; j += 2) out.set(exact[j], exact[j + 1]);
+  if (prefix && t.length >= 3) {
+    let lo = 0, hi = VOCAB.length; while (lo < hi) { const m = (lo + hi) >> 1; if (VOCAB[m] < t) lo = m + 1; else hi = m; }
+    for (let k = lo, n = 0; k < VOCAB.length && VOCAB[k].startsWith(t) && n < 60; k++, n++) {
+      if (VOCAB[k] === t) continue; const a = INV.get(VOCAB[k]);
+      for (let j = 0; j < a.length; j += 2) out.set(a[j], Math.max(out.get(a[j]) || 0, a[j + 1] * 0.6));
+    }
+  }
+  return out;
+}
+const idf = n => Math.log(1 + (NB - n + 0.5) / (n + 0.5));
+function bm25(tf, len) { const k1 = 1.2, b = 0.75; return tf * (k1 + 1) / (tf + k1 * (1 - b + b * len / AVG)); }
+function search(q) {
+  const { groups, phrases, excl } = parseQuery(q);
+  if (!groups.length) return { hits: [], terms: [] };
+  let scores = null; const terms = [];
+  groups.forEach((alts, gi) => {
+    const g = new Map();
+    alts.forEach(seq => {
+      // une alternative = suite de mots, tous présents dans le bloc
+      let acc = null;
+      seq.forEach((t, ti) => {
+        terms.push(t);
+        const p = postings(t, gi === groups.length - 1 && ti === seq.length - 1 || t.length >= 5);
+        const w = idf(p.size || 1); const m = new Map();
+        p.forEach((tf, i) => { if (!acc || acc.has(i)) m.set(i, (acc ? acc.get(i) : 0) + w * bm25(tf, B[i].len)); });
+        acc = m;
+      });
+      if (acc) acc.forEach((s, i) => g.set(i, Math.max(g.get(i) || 0, s)));
+    });
+    if (scores === null) scores = g;
+    else { const n = new Map(); g.forEach((s, i) => { if (scores.has(i)) n.set(i, scores.get(i) + s); }); scores = n; }
+  });
+  let hits = [...scores.entries()];
+  if (phrases.length) hits = hits.filter(([i]) => phrases.every(p => B[i].fold.includes(p)));
+  if (excl.length) hits = hits.filter(([i]) => !excl.some(t => B[i].fold.match(new RegExp('\\b' + t))));
+  hits = hits.map(([i, s]) => [i, s * (KBOOST[B[i].k] || 1)]).sort((a, b) => b[1] - a[1]);
+  return { hits, terms: [...new Set(terms.filter(t => t.length >= 2))], phrases };
+}
+
+// ---------- filtres ----------
+const F = { th: '', doc: '', col: new Set(store.get('col_sel', [])), kind: new Set(store.get('kind_sel', [])), mode: store.get('mode', 'fiche') };
+function initFilters() {
+  const ths = [...new Set(D.docs.map(d => d.th).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }));
+  ths.forEach(t => $('#fth').insertAdjacentHTML('beforeend', `<option>${esc(t)}</option>`));
+  const fillDocs = () => { $('#fdoc').innerHTML = '<option value="">Tous les documents</option>' + D.docs.map((d, i) => [d, i]).filter(([d]) => !F.th || d.th === F.th)
+      .map(([d, i]) => `<option value="${i}">${esc(d.n)}</option>`).join(''); };
+  fillDocs();
+  $('#fth').onchange = e => { F.th = e.target.value; F.doc = ''; fillDocs(); run(); };
+  $('#fdoc').onchange = e => { F.doc = e.target.value; run(); };
+  const cols = [...new Set(D.docs.map(d => d.c))];
+  const chips = (box, items, set, key, attr) => {
+    const draw = () => { box.innerHTML = items.map(c => `<span class="chip${set.has(c) ? ' on' : ''}" data-${attr}="${esc(c)}" title="Afficher seulement : ${esc(c)} (cliquez à nouveau pour retirer)">${esc(c)}</span>`).join(' ')
+      + (set.size ? ` <span class="chip reset" data-reset="1" title="Retirer ce filtre">tout</span>` : ''); };
+    draw();
+    box.onclick = e => { const t = e.target; if (t.dataset.reset) set.clear(); else { const c = t.dataset[attr]; if (!c) return; set.has(c) ? set.delete(c) : set.add(c); }
+      store.set(key, [...set]); draw(); run(); };
+  };
+  chips($('#fcol'), cols, F.col, 'col_sel', 'c');
+  const kinds = ORDER.filter(k => B.some(b => b.k === k));
+  chips($('#fkind'), kinds, F.kind, 'kind_sel', 'k');
+  document.querySelectorAll('#mode button').forEach(b => { b.classList.toggle('on', b.dataset.m === F.mode);
+    b.onclick = () => { F.mode = b.dataset.m; store.set('mode', F.mode); document.querySelectorAll('#mode button').forEach(x => x.classList.toggle('on', x === b)); run(); }; });
+}
+const pass = i => { const b = B[i], d = D.docs[b.d]; return (!F.th || d.th === F.th) && (F.doc === '' || +F.doc === b.d) && (!F.col.size || F.col.has(d.c)) && (!F.kind.size || F.kind.has(b.k)); };
+
+// ---------- affichage ----------
+function hl(text, terms, phrases) {
+  if (!terms.length && !phrases.length) return esc(text);
+  const f = [...text].map(c => fold(c)[0] || c).join('');  // repliement caractère par caractère (positions conservées)
+  const marks = new Uint8Array(text.length);
+  terms.forEach(t => { const re = new RegExp('(^|[^a-z0-9])(' + t + '[a-z0-9]*)', 'g'); let m; while ((m = re.exec(f))) { const s = m.index + m[1].length; marks.fill(1, s, s + m[2].length); } });
+  phrases.forEach(p => { let k = f.indexOf(p); while (k >= 0) { marks.fill(1, k, k + p.length); k = f.indexOf(p, k + 1); } });
+  let out = '', on = false;
+  for (let k = 0; k < text.length; k++) { if (marks[k] && !on) { out += '<mark>'; on = true; } if (!marks[k] && on) { out += '</mark>'; on = false; } out += esc(text[k]); }
+  return out + (on ? '</mark>' : '');
+}
+function blockHTML(i, terms, phrases, full) {
+  const b = B[i], d = D.docs[b.d];
+  const href = d.p + '#b' + b.g;
+  const bc = [`<a href="${href}" title="Ouvrir le document">${esc(d.n)}</a>`, ...(b.h || []).map(esc)].join(' › ');
+  let body = '';
+  if (b.r) {
+    let rows = b.r; const head = (b.k === 'Valeurs à retenir' || b.k === 'Tableau') ? rows[0] : null;
+    let data = head ? rows.slice(1) : rows; let hidden = 0;
+    if (!full && b.k === 'Tableau' && data.length > 8) {
+      const f = data.filter(r => terms.some(t => fold(r.join(' ')).match(new RegExp('(^|[^a-z0-9])' + t))) || phrases.some(p => fold(r.join(' ')).includes(p)));
+      if (f.length && f.length < data.length) { hidden = data.length - f.length; data = f; }
+    }
+    body = '<table>' + (head ? '<tr>' + head.map(c => `<th>${hl(c, terms, phrases)}</th>`).join('') + '</tr>' : '') +
+      data.map(r => '<tr>' + r.map(c => `<td>${hl(c, terms, phrases)}</td>`).join('') + '</tr>').join('') + '</table>' +
+      (hidden ? `<div class="tools"><button data-full="${i}">Afficher les ${hidden} autres lignes</button></div>` : '');
+  } else body = `<div class="tx">${hl(b.x, terms, phrases)}</div>`;
+  if (b.im) body = `<div class="figs">${b.im.map(n => `<img loading="lazy" src="${D.imgdir}${n}.jpg" alt="Figure" data-zoom="1">`).join('')}</div>` + body + (b.cr ? `<div class="bc">${esc(b.cr)}</div>` : '');
+  return `<div class="blk k-${KCLASS(b.k)}" data-i="${i}" id="b${i}"><div class="hd"><span class="badge">${esc(b.k)}</span><span class="ti pv" data-pv="${i}" title="Aperçu dans le document">${hl(b.t, terms, phrases)}</span></div>
+    <div class="bc">${esc(d.th)} › ${bc}</div>${body}<div class="tools"><button data-pv="${i}">Aperçu</button><button data-copy="${i}">Copier</button><a href="${href}">Ouvrir la page</a></div></div>`;
+}
+let LAST = null, SHOWN = 0;
+function render(append) {
+  const { hits, terms, phrases } = LAST; const res = $('#res');
+  const list = hits.filter(([i]) => pass(i));
+  if (!append) { res.innerHTML = ''; SHOWN = 0; }
+  if (!list.length) { res.innerHTML = '<div class="help">Aucun bloc ne correspond. Essayez un terme plus court (préfixe), une abréviation, ou retirez des filtres.</div>'; return; }
+  const step = 150, slice = list.slice(SHOWN, SHOWN + step); SHOWN += slice.length;
+  let html = '';
+  if (F.mode === 'fiche') {
+    const byK = new Map(); slice.forEach(([i]) => { const k = B[i].k; if (!byK.has(k)) byK.set(k, []); byK.get(k).push(i); });
+    ORDER.forEach(k => { if (byK.has(k)) html += `<div class="group"><h2>${esc(k)} · ${byK.get(k).length}</h2>` + byK.get(k).map(i => blockHTML(i, terms, phrases)).join('') + '</div>'; });
+  } else html = slice.map(([i]) => blockHTML(i, terms, phrases)).join('');
+  const old = res.querySelector('.more'); if (old) old.remove();
+  res.insertAdjacentHTML('beforeend', html);
+  if (SHOWN < list.length) res.insertAdjacentHTML('beforeend', `<button class="icon-btn more">Afficher plus (${list.length - SHOWN} restants)</button>`);
+  const docs = new Set(list.map(([i]) => B[i].d)).size;
+  $('#status').textContent = `${list.length.toLocaleString('fr-FR')} blocs dans ${docs} documents` + (list.length > SHOWN ? ` · ${SHOWN} affichés` : '');
+}
+function helpHTML() {
+  return `<div class="help"><b>Comment chercher</b><ul>
+  <li>Tapez une <b>pathologie</b> ou un <b>signe</b> : <code>kyste hydatique</code>, <code>double contour</code>, <code>appendicite</code>. Les accents et le pluriel sont ignorés ; le dernier mot est complété (<code>append</code> trouve appendice, appendicite).</li>
+  <li><b>Abréviations et synonymes</b> reconnus : <code>VBP</code>, <code>KH</code>, <code>TVP</code>, <code>EP</code>, <code>HTP</code>, <code>DDB</code>…</li>
+  <li><code>"phrase exacte"</code> entre guillemets ; <code>-mot</code> pour exclure (<code>appendicite -enfant</code>).</li>
+  <li><b>Images</b> : les figures s’affichent avec leur légende ; cliquez sur une image pour l’agrandir.</li>
+  <li><b>Aperçu</b> : cliquez sur le titre d’un bloc (ou « Aperçu ») pour lire le document entier à cet endroit, mots surlignés ; ◀ ▶ (ou flèches du clavier) passent d’une correspondance à l’autre, « Aller à une partie » sert de sommaire, Échap ferme.</li>
+  <li>Mode <b>Fiche</b> : tous les blocs regroupés par type (carte, valeurs à retenir, compte rendu type, pièges…) — idéal pour réviser une pathologie. Mode <b>Liste</b> : classement par pertinence.</li>
+  <li>Filtres : thème, document, collection (Programme, Selon le cours DEMS, Doppler, Urgences, CR types du service) et type de bloc : cliquez sur une ou plusieurs puces pour n’afficher que celles-ci, « tout » pour revenir. Raccourci : <code>/</code> pour revenir à la recherche.</li></ul></div>`;
+}
+function run() {
+  const q = $('#q').value.trim(); store.set('q', q);
+  if (!q) { $('#res').innerHTML = helpHTML(); return; }
+  LAST = search(q); render(false);
+}
+// ---------- suggestions ----------
+let sel = -1;
+function suggest() {
+  const v = fold($('#q').value.trim()); const box = $('#sugg'); sel = -1;
+  if (v.length < 3) { box.style.display = 'none'; return; }
+  const out = []; for (const t of TITLES) { if (t[0].includes(v)) out.push(t); if (out.length >= 8) break; }
+  if (!out.length) { box.style.display = 'none'; return; }
+  box.innerHTML = out.map(t => `<div data-v="${esc(t[1])}">${esc(t[1])} <small>— ${esc(t[2])}</small></div>`).join(''); box.style.display = 'block';
+}
+let timer;
+$('#q').addEventListener('input', () => { suggest(); clearTimeout(timer); timer = setTimeout(run, 180); });
+$('#q').addEventListener('keydown', e => {
+  const items = [...document.querySelectorAll('#sugg div')];
+  if (e.key === 'ArrowDown' && items.length) { sel = (sel + 1) % items.length; items.forEach((x, k) => x.classList.toggle('on', k === sel)); e.preventDefault(); }
+  else if (e.key === 'ArrowUp' && items.length) { sel = (sel - 1 + items.length) % items.length; items.forEach((x, k) => x.classList.toggle('on', k === sel)); e.preventDefault(); }
+  else if (e.key === 'Enter') { if (sel >= 0 && items[sel]) $('#q').value = items[sel].dataset.v; $('#sugg').style.display = 'none'; run(); }
+  else if (e.key === 'Escape') { $('#sugg').style.display = 'none'; }
+});
+$('#sugg').addEventListener('mousedown', e => { const d = e.target.closest('div[data-v]'); if (d) { $('#q').value = d.dataset.v; $('#sugg').style.display = 'none'; run(); } });
+document.addEventListener('click', e => { if (!e.target.closest('.searchbox')) $('#sugg').style.display = 'none'; });
+document.addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== $('#q')) { e.preventDefault(); $('#q').focus(); $('#q').select(); } });
+// ---------- aperçu : document reconstitué, centré sur le bloc ----------
+let PV = { hits: [], k: 0 };
+function preview(i) {
+  const b0 = B[i], d = D.docs[b0.d], ids = DOCB[b0.d];
+  const terms = LAST ? LAST.terms : [], phrases = LAST ? (LAST.phrases || []) : [];
+  const inRes = new Set(LAST ? LAST.hits.map(([j]) => j) : []);
+  let html = '', h1 = null, h2 = null; const toc = [];
+  ids.forEach(j => {
+    const h = B[j].h || [];
+    if (h[0] && h[0] !== h1) { h1 = h[0]; h2 = null; toc.push([j, h1, 1]); html += `<h3 class="H1" id="t${j}">${esc(h1)}</h3>`; }
+    if (h[1] && h[1] !== h2 && B[j].k !== 'L’essentiel') { h2 = h[1]; toc.push([j, h2, 2]); html += `<h3 class="H2" id="t${j}">${esc(h2)}</h3>`; }
+    html += blockHTML(j, terms, phrases, true).replace(`id="b${j}"`, `id="p${j}"`).replace('class="blk', `class="blk${inRes.has(j) ? ' hit' : ''}${j === i ? ' target' : ''}`);
+  });
+  $('#pvb').innerHTML = html;
+  $('#pvt').textContent = d.n; $('#pvo').href = d.p + '#b' + b0.g;
+  $('#pvs').innerHTML = '<option value="">Aller à une partie…</option>' + toc.map(([j, t, l]) => `<option value="${j}">${l === 2 ? ' ' : ''}${esc(t)}</option>`).join('');
+  PV.hits = ids.filter(j => inRes.has(j)); PV.k = Math.max(0, PV.hits.indexOf(i));
+  $('#pv').classList.add('open'); $('#ov').classList.add('open'); document.body.style.overflow = 'hidden';
+  pvNav(0, i);
+}
+function pvNav(step, target) {
+  if (target == null) { if (!PV.hits.length) return; PV.k = (PV.k + step + PV.hits.length) % PV.hits.length; target = PV.hits[PV.k]; }
+  $('#pvn').textContent = PV.hits.length ? `correspondance ${PV.k + 1} / ${PV.hits.length} dans ce document` : 'aucune autre correspondance';
+  document.querySelectorAll('#pvb .blk.target').forEach(x => x.classList.remove('target'));
+  const el = document.getElementById('p' + target); if (!el) return;
+  el.classList.add('target'); el.scrollIntoView({ block: 'start' }); $('#pvb').scrollTop -= 12;
+}
+function pvClose() { $('#pv').classList.remove('open'); $('#ov').classList.remove('open'); document.body.style.overflow = ''; }
+$('#pvx').onclick = pvClose; $('#ov').onclick = pvClose;
+$('#pvp').onclick = () => pvNav(-1); $('#pvnx').onclick = () => pvNav(1);
+$('#pvs').onchange = e => { const j = e.target.value; if (j) { const el = document.getElementById('t' + j); if (el) el.scrollIntoView({ block: 'start' }); } e.target.value = ''; };
+$('#pvb').addEventListener('click', e => {
+  const c = e.target.dataset.copy, f = e.target.dataset.full, p = e.target.dataset.pv;
+  if (p != null) { pvNav(0, +p); return; }
+  if (f != null) return;
+  if (c != null) { const b = B[+c]; const t = b.t + '\n' + (b.r ? b.r.map(r => r.join(' : ')).join('\n') : b.x);
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { e.target.textContent = 'Copié ✓'; setTimeout(() => e.target.textContent = 'Copier', 1500); }).catch(() => {}); }
+});
+document.addEventListener('keydown', e => {
+  if (!$('#pv').classList.contains('open')) return;
+  if (e.key === 'Escape') pvClose();
+  else if (e.key === 'ArrowRight' || e.key === 'n') pvNav(1);
+  else if (e.key === 'ArrowLeft' || e.key === 'p') pvNav(-1);
+});
+$('#res').addEventListener('click', e => {
+  const c = e.target.dataset.copy, f = e.target.dataset.full, pv = e.target.closest('[data-pv]');
+  if (e.target.classList.contains('more')) { render(true); return; }
+  if (pv) { preview(+pv.dataset.pv); return; }
+  if (f != null) { const el = e.target.closest('.blk'); el.outerHTML = blockHTML(+f, LAST.terms, LAST.phrases || [], true); return; }
+  if (c != null) { const b = B[+c]; const t = b.t + '\n' + (b.r ? b.r.map(r => r.join(' : ')).join('\n') : b.x);
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { e.target.textContent = 'Copié ✓'; setTimeout(() => e.target.textContent = 'Copier', 1500); }).catch(() => {}); }
+});
+// ---------- agrandissement des images ----------
+document.addEventListener('click', e => {
+  if (e.target.dataset && e.target.dataset.zoom) { e.stopPropagation(); $('#lb img').src = e.target.src; $('#lb').classList.add('open'); return; }
+  if (e.target.closest('#lb')) $('#lb').classList.remove('open');
+}, true);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#lb').classList.contains('open')) { $('#lb').classList.remove('open'); e.stopImmediatePropagation(); } }, true);
+// ---------- thème ----------
+const applyTheme = t => { if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; };
+applyTheme(store.get('theme', ''));
+$('#theme').onclick = () => { const cur = document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const nx = cur === 'dark' ? 'light' : 'dark'; applyTheme(nx); store.set('theme', nx); };
+load().catch(err => { $('#status').textContent = 'Erreur de chargement de l’index : ' + err.message + ' (navigateur trop ancien ? utilisez Chrome, Edge ou Firefox récents).'; });
+</script>
+</body>
+</html>
