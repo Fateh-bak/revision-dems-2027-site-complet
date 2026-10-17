@@ -138,6 +138,10 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
 .k-Cas { --kc: var(--k-cas); }
 [hidden] { display: none !important; }
 @media (max-width: 760px) { .trow { grid-template-columns: 1fr 60px; } .trow .bar, .trow .st { display: none; } }
+.sitenav { display: flex; gap: 4px; }
+.sitenav a { color: var(--muted); text-decoration: none; padding: 7px 11px; border-radius: 8px; font-size: 14.5px; font-weight: 550; white-space: nowrap; }
+.sitenav a:hover { background: var(--chip); color: var(--ink); }
+.sitenav a.on { background: var(--accent-soft); color: var(--accent); }
 @media (max-width: 640px) { .top h1 { display: none; } .blk td:first-child { width: 34%; } }
 </style>
 </head>
@@ -146,7 +150,8 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
   <div class="top">
     <h1><a id="brand" href="#" style="color:inherit;text-decoration:none">Bak's Radiology</a></h1>
     <div class="searchbox"><input id="q" type="search" placeholder="Pathologie, signe, mesure…  ex. kyste hydatique, « double contour », appendicite -enfant" autocomplete="off" disabled><div id="sugg"></div></div>
-    <a class="icon-btn" id="homebtn" hidden>Thèmes</a><a class="icon-btn" id="majbtn" href="#maj" hidden>Mises à jour v2</a>
+    <nav class="sitenav" id="sitenav" hidden><a id="nav-cours">Cours</a><a id="nav-rech" href="recherche.html">Recherche</a><a id="nav-prog">Progression</a></nav>
+    <a class="icon-btn" id="majbtn" href="#maj" hidden>Progression</a>
     <button class="icon-btn" id="theme" title="Thème clair / sombre">◐</button>
   </div>
   <div class="filters" id="filtersrow">
@@ -174,7 +179,8 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
 <script id="idx" type="application/octet-stream"></script>
 <script>
 'use strict';
-const CFG = { home: 'index.html', about: 'apropos.html', view: 'recherche' };
+// site : home = page des cours par thème, prog = page de progression ; page locale : vides
+const CFG = { home: 'index.html', prog: 'progression.html', view: 'recherche' };
 // ---------- utilitaires ----------
 const $ = s => document.querySelector(s);
 const fold = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ').replace(/œ/g, 'oe').replace(/æ/g, 'ae');
@@ -230,8 +236,9 @@ async function load() {
   B.forEach((b, i) => { if ((b.k === 'Carte' || b.k === 'Valeurs à retenir') && !seen.has(b.t)) { seen.add(b.t); TITLES.push([fold(b.t), b.t, D.docs[b.d].n]); } });
   initFilters();
   $('#q').disabled = false; $('#q').value = '';
-  if (CFG.home && !CFG.home.startsWith('__')) { $('#homebtn').href = CFG.home; $('#homebtn').hidden = false; $('#brand').href = CFG.home; }
-  if (D.maj) $('#majbtn').hidden = false;
+  const SITE = CFG.home && !CFG.home.startsWith('__');
+  if (SITE) { $('#sitenav').hidden = false; $('#nav-cours').href = CFG.home; $('#nav-prog').href = CFG.prog; $('#brand').href = CFG.home; }
+  else if (D.maj) $('#majbtn').hidden = false;
   window.addEventListener('hashchange', route);
   route();
 }
@@ -552,7 +559,8 @@ function route() {
   const m = v === 'maj';
   $('#vmaj').hidden = !m; $('#status').hidden = m; $('#res').hidden = m;
   document.querySelectorAll('.searchbox, #filtersrow').forEach(x => x.hidden = m);
-  $('#majbtn').textContent = m ? 'Recherche' : 'Mises à jour v2'; $('#majbtn').href = m ? '#recherche' : '#maj';
+  $('#majbtn').textContent = m ? 'Recherche' : 'Progression'; $('#majbtn').href = m ? '#recherche' : '#maj';
+  $('#nav-rech').classList.toggle('on', !m); $('#nav-prog').classList.toggle('on', m);
   if (m) showMaj();
   else { $('#status').textContent = `${D.docs.length} documents · ${nf(NB)} blocs indexés · index du ${D.built}`; run(); $('#q').focus(); }
   window.scrollTo(0, 0);
