@@ -184,11 +184,15 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
   </div>
   <div class="pvb" id="pvb"></div>
 </aside>
-<script id="idx" type="application/octet-stream"></script>
+<script src="search-index.js"></script>
 <script>
 'use strict';
 // site : home = page des cours par thème, prog = page de progression ; page locale : vides
 const CFG = { home: 'index.html', prog: 'progression.html', view: 'recherche' };
+// avant le chargement de l'index : n'afficher que la zone de la page demandée (pas de recherche qui « clignote » sur Progression)
+(() => { const v = location.hash.slice(1) || CFG.view; if (v === 'recherche' || v.startsWith('__')) return;
+  document.querySelectorAll('.searchbox, #filtersrow, #res').forEach(x => x.hidden = true);
+  document.querySelector('#status').textContent = 'Chargement…'; })();
 // ---------- utilitaires ----------
 const $ = s => document.querySelector(s);
 const fold = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ').replace(/œ/g, 'oe').replace(/æ/g, 'ae');
@@ -211,14 +215,9 @@ const pretty = th => th ? th.replace(/[A-Za-z-]+/g, w => PRETTY[w] || w) : '';
 
 // ---------- chargement ----------
 async function load() {
-  const b64 = $('#idx').textContent.trim(); let txt;
-  if (b64 && !b64.startsWith('__')) {
-    const bin = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-    txt = await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
-  } else {
-    const buf = await (await fetch('search-index.json.gz')).arrayBuffer();
-    try { txt = await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text(); } catch (e) { txt = new TextDecoder().decode(buf); }
-  }
+  if (typeof IDX === 'undefined') throw new Error('search-index.js introuvable');
+  const bin = Uint8Array.from(atob(IDX), c => c.charCodeAt(0));
+  const txt = await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
   D = JSON.parse(txt); B = D.blocks;
   // texte de chaque bloc et index inversé (titre ×3, chemin ×1.5, contenu ×1)
   INV = new Map(); let total = 0;
