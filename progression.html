@@ -63,6 +63,8 @@ main { padding: 14px 0 60px; }
 .blk .bc a { color: var(--accent); text-decoration: none; }
 .blk .bc a:hover { text-decoration: underline; }
 .blk .tx { white-space: pre-wrap; font-size: 14.5px; }
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.blk { min-width: 0; overflow-wrap: anywhere; }
 .blk table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 4px; }
 .blk td, .blk th { border: 1px solid var(--line); padding: 4px 8px; vertical-align: top; text-align: left; white-space: pre-wrap; }
 .blk th { background: var(--accent-soft); font-weight: 600; }
@@ -150,7 +152,28 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
 .tcard li a { color: var(--ink); text-decoration: none; }
 .tcard li a:hover { color: var(--accent); text-decoration: underline; }
 .tcard li a.w { color: var(--accent); font-size: 12px; margin-left: 4px; }
-@media (max-width: 640px) { .top h1 { display: none; } .blk td:first-child { width: 34%; } }
+#ftoggle { display: none; padding: 4px 10px; font-size: 13px; }
+@media (max-width: 640px) {
+  .wrap { padding: 0 12px; }
+  .top { flex-wrap: wrap; gap: 6px 8px; padding: 8px 0 6px; }
+  .top h1 { font-size: 16px; flex: 1; }
+  .sitenav a { padding: 6px 8px; font-size: 14px; }
+  .searchbox { order: 5; flex: 1 1 100%; }
+  #q { font-size: 16px; padding: 9px 12px; }
+  .filters { gap: 6px; padding-bottom: 8px; }
+  .filters select { flex: 1 1 40%; max-width: none; min-width: 0; }
+  #ftoggle { display: inline-block; }
+  #fcol, #fkind { display: none; width: 100%; }
+  .filters.open #fcol, .filters.open #fkind { display: flex; flex-wrap: wrap; gap: 6px; }
+  .blk { padding: 9px 11px; }
+  .blk td:first-child { width: 34%; }
+  .blk td, .blk th { padding: 4px 6px; font-size: 13.5px; }
+  #pv .pvb { padding: 6px 10px 60px; }
+  .hero { grid-template-columns: 1fr; text-align: left; }
+  .big { font-size: 34px; }
+  .tdocs { padding-left: 4px; overflow-x: auto; }
+  .help ul { padding-left: 18px; }
+}
 </style>
 </head>
 <body>
@@ -165,6 +188,7 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
     <span class="seg" id="mode"><button data-m="fiche" class="on" title="Résultats regroupés par type de bloc">Fiche</button><button data-m="liste" title="Résultats classés par pertinence">Liste</button></span>
     <select id="fth"><option value="">Tous les thèmes</option></select>
     <select id="fdoc"><option value="">Tous les documents</option></select>
+    <button class="icon-btn" id="ftoggle" type="button">Filtres</button>
     <span id="fcol"></span>
     <span id="fkind"></span>
   </div>
@@ -399,6 +423,10 @@ function initFilters() {
     box.onclick = e => { const t = e.target; if (t.dataset.reset) set.clear(); else { const c = t.dataset[attr]; if (!c) return; set.has(c) ? set.delete(c) : set.add(c); }
       store.set(key, [...set]); draw(); run(); };
   };
+  const ftg = () => { const n = F.col.size + F.kind.size; $('#ftoggle').textContent = n ? `Filtres (${n})` : 'Filtres'; };
+  $('#ftoggle').onclick = () => $('#filtersrow').classList.toggle('open');
+  $('#fcol').addEventListener('click', () => setTimeout(ftg)); $('#fkind').addEventListener('click', () => setTimeout(ftg));
+  setTimeout(ftg);
   chips($('#fcol'), cols, F.col, 'col_sel', 'c');
   const kinds = ORDER.filter(k => B.some(b => b.k === k));
   chips($('#fkind'), kinds, F.kind, 'kind_sel', 'k');
@@ -430,8 +458,8 @@ function blockHTML(i, terms, phrases, full) {
       const f = data.filter(r => terms.some(t => fold(r.join(' ')).match(new RegExp('(^|[^a-z0-9])' + t))) || phrases.some(p => fold(r.join(' ')).includes(p)));
       if (f.length && f.length < data.length) { hidden = data.length - f.length; data = f; }
     }
-    body = '<table>' + (head ? '<tr>' + head.map(c => `<th>${hl(c, terms, phrases)}</th>`).join('') + '</tr>' : '') +
-      data.map(r => '<tr>' + r.map(c => `<td>${hl(c, terms, phrases)}</td>`).join('') + '</tr>').join('') + '</table>' +
+    body = '<div class="tw"><table>' + (head ? '<tr>' + head.map(c => `<th>${hl(c, terms, phrases)}</th>`).join('') + '</tr>' : '') +
+      data.map(r => '<tr>' + r.map(c => `<td>${hl(c, terms, phrases)}</td>`).join('') + '</tr>').join('') + '</table></div>' +
       (hidden ? `<div class="tools"><button data-full="${i}">Afficher les ${hidden} autres lignes</button></div>` : '');
   } else body = `<div class="tx">${hl(b.x, terms, phrases)}</div>`;
   if (b.im) body = `<div class="figs">${b.im.map(n => `<img loading="lazy" src="${D.imgdir}${n}.jpg" alt="Figure" data-zoom="1">`).join('')}</div>` + body + (b.cr ? `<div class="bc">${esc(b.cr)}</div>` : '');
