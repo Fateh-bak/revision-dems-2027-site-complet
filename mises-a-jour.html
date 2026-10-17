@@ -9,111 +9,81 @@
   color-scheme: light;
   --bg: #f6f7f9; --surface: #ffffff; --ink: #1d2433; --muted: #5b6474; --line: #dde1e8;
   --accent: #1f4e79; --accent-soft: #e5eef7; --mark: #ffe58a; --chip: #eef1f5; --shadow: 0 1px 2px rgba(16,24,40,.06);
-  --ok: #2e7d32; --ok-soft: #e6f3e7; --warn: #8a4b00; --warn-soft: #fbefdc; --todo: #9aa3b2;
-  --k-carte: #1f4e79; --k-val: #2e7d32; --k-cr: #8a4b00; --k-box: #5b4b8a; --k-txt: #4a5568; --k-fig: #7a5c00; --k-tab: #00695c; --k-cas: #b03a2e;
+  --k-carte: #1f4e79; --k-val: #2e7d32; --k-cr: #8a4b00; --k-box: #5b4b8a; --k-txt: #4a5568; --k-fig: #7a5c00; --k-tab: #00695c;
+  --ok: #2e7d32; --ok-soft: #e6f3e7; --warn: #8a4b00; --warn-soft: #fbefdc; --todo: #9aa3b2; --k-cas: #b03a2e;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   color-scheme: dark;
   --bg: #12151b; --surface: #1b2029; --ink: #e6e9ef; --muted: #9aa3b2; --line: #2c3340;
   --accent: #8cb8e6; --accent-soft: #223246; --mark: #6b5a12; --chip: #252c38; --shadow: none;
-  --ok: #7fc98a; --ok-soft: #1f3324; --warn: #e2a35c; --warn-soft: #3a2b17; --todo: #5b6474;
-  --k-carte: #8cb8e6; --k-val: #7fc98a; --k-cr: #e2a35c; --k-box: #b3a4e6; --k-txt: #b5bdc9; --k-fig: #d9bf6a; --k-tab: #6fd0c0; --k-cas: #f08a7e;
+  --k-carte: #8cb8e6; --k-val: #7fc98a; --k-cr: #e2a35c; --k-box: #b3a4e6; --k-txt: #b5bdc9; --k-fig: #d9bf6a; --k-tab: #6fd0c0;
+  --ok: #7fc98a; --ok-soft: #1f3324; --warn: #e2a35c; --warn-soft: #3a2b17; --todo: #5b6474; --k-cas: #f08a7e;
 } }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #12151b; --surface: #1b2029; --ink: #e6e9ef; --muted: #9aa3b2; --line: #2c3340;
   --accent: #8cb8e6; --accent-soft: #223246; --mark: #6b5a12; --chip: #252c38; --shadow: none;
-  --ok: #7fc98a; --ok-soft: #1f3324; --warn: #e2a35c; --warn-soft: #3a2b17; --todo: #5b6474;
-  --k-carte: #8cb8e6; --k-val: #7fc98a; --k-cr: #e2a35c; --k-box: #b3a4e6; --k-txt: #b5bdc9; --k-fig: #d9bf6a; --k-tab: #6fd0c0; --k-cas: #f08a7e;
+  --k-carte: #8cb8e6; --k-val: #7fc98a; --k-cr: #e2a35c; --k-box: #b3a4e6; --k-txt: #b5bdc9; --k-fig: #d9bf6a; --k-tab: #6fd0c0;
+  --ok: #7fc98a; --ok-soft: #1f3324; --warn: #e2a35c; --warn-soft: #3a2b17; --todo: #5b6474; --k-cas: #f08a7e;
 }
-:root[data-theme="light"] { color-scheme: light; }
 * { box-sizing: border-box; }
+:root[data-theme="light"] { color-scheme: light; }
 select option, select optgroup { background: var(--surface); color: var(--ink); }
 input::placeholder { color: var(--muted); opacity: 1; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Calibri, sans-serif; }
-a { color: var(--accent); }
 header { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
-.wrap { max-width: 1140px; margin: 0 auto; padding: 0 16px; }
-.top { display: flex; align-items: center; gap: 14px; padding: 10px 0; flex-wrap: wrap; }
-.brand { font-size: 18px; font-weight: 700; color: var(--accent); text-decoration: none; white-space: nowrap; letter-spacing: .01em; }
-.brand span { font-weight: 400; color: var(--muted); font-size: 13px; margin-left: 6px; }
-.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
-.tabs button, .tabs a { border: 0; background: none; color: var(--muted); font-size: 14.5px; padding: 7px 12px; border-radius: 8px; cursor: pointer; text-decoration: none; font-weight: 550; }
-.tabs button:hover, .tabs a:hover { background: var(--chip); color: var(--ink); }
-.tabs button.on { background: var(--accent-soft); color: var(--accent); }
-.sp { flex: 1; }
-.icon-btn { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 14px; text-decoration: none; }
-.icon-btn:hover { border-color: var(--accent); }
-.searchrow { padding: 0 0 10px; }
-.searchbox { position: relative; }
-#q { width: 100%; font-size: 17px; padding: 11px 14px 11px 40px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--ink); outline: none; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.top { display: flex; align-items: center; gap: 12px; padding: 12px 0 8px; }
+.top h1 { font-size: 17px; margin: 0; color: var(--accent); white-space: nowrap; }
+.searchbox { position: relative; flex: 1; }
+#q { width: 100%; font-size: 17px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); outline: none; }
 #q:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.searchbox .lens { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 16px; }
-#sugg { position: absolute; left: 0; right: 0; top: 100%; margin-top: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,.12); display: none; overflow: hidden; z-index: 6; }
+#sugg { position: absolute; left: 0; right: 0; top: 100%; margin-top: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,.12); display: none; overflow: hidden; }
 #sugg div { padding: 7px 12px; cursor: pointer; font-size: 14px; }
 #sugg div:hover, #sugg div.on { background: var(--accent-soft); }
 #sugg small { color: var(--muted); }
-.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 0 0; font-size: 13px; }
+.icon-btn { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px; padding: 7px 10px; cursor: pointer; font-size: 14px; } a.icon-btn { text-decoration: none; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 0 0 10px; font-size: 13px; }
 .filters select { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px; padding: 5px 8px; font-size: 13px; max-width: 230px; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { border: 1px solid var(--line); background: var(--chip); color: var(--ink); border-radius: 999px; padding: 3px 11px; cursor: pointer; user-select: none; font-size: 13px; white-space: nowrap; }
+.chip { border: 1px solid var(--line); background: var(--chip); color: var(--ink); border-radius: 999px; padding: 3px 10px; cursor: pointer; user-select: none; }
 .chip:hover { border-color: var(--accent); }
 .chip.on { background: var(--accent); color: var(--surface); border-color: var(--accent); }
 .chip.reset { background: none; color: var(--accent); border-style: dashed; }
-.chip .n { opacity: .7; margin-left: 4px; font-size: 12px; }
-.chip.zero { opacity: .45; }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-.seg button { border: 0; background: var(--bg); color: var(--ink); padding: 5px 11px; cursor: pointer; font-size: 13px; }
+.seg button { border: 0; background: var(--bg); color: var(--ink); padding: 5px 10px; cursor: pointer; font-size: 13px; }
 .seg button.on { background: var(--accent); color: var(--surface); }
-.linkbtn { background: none; border: 0; color: var(--accent); cursor: pointer; font-size: 13px; padding: 0; }
-.linkbtn:hover { text-decoration: underline; }
 main { padding: 14px 0 60px; }
-#status { color: var(--muted); font-size: 13px; margin: 2px 0 10px; }
-.notice { background: var(--warn-soft); border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: 10px; padding: 8px 12px; font-size: 13.5px; margin: 0 0 12px; }
-.notice b { color: var(--warn); }
-.group h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 22px 0 8px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+#status { color: var(--muted); font-size: 13px; margin: 2px 0 12px; }
+.group h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 22px 0 8px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
 .blk { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--kc, var(--accent)); border-radius: 10px; padding: 10px 14px; margin: 0 0 10px; box-shadow: var(--shadow); }
 .blk .hd { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
-.badge { font-size: 11px; font-weight: 600; color: var(--kc, var(--accent)); border: 1px solid var(--kc, var(--accent)); border-radius: 999px; padding: 0 8px; white-space: nowrap; }
+.badge { font-size: 11px; font-weight: 600; color: var(--kc); border: 1px solid var(--kc); border-radius: 999px; padding: 0 8px; white-space: nowrap; }
 .blk .ti { font-weight: 650; font-size: 15.5px; }
 .blk .bc { color: var(--muted); font-size: 12.5px; margin: 2px 0 6px; }
 .blk .bc a { color: var(--accent); text-decoration: none; }
 .blk .bc a:hover { text-decoration: underline; }
 .blk .tx { white-space: pre-wrap; font-size: 14.5px; }
-.blk .cr { color: var(--muted); font-size: 12px; margin-top: 4px; }
 .blk table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 4px; }
 .blk td, .blk th { border: 1px solid var(--line); padding: 4px 8px; vertical-align: top; text-align: left; white-space: pre-wrap; }
 .blk th { background: var(--accent-soft); font-weight: 600; }
 .blk td:first-child { font-weight: 600; width: 26%; }
-.blk .tools { display: flex; gap: 12px; margin-top: 6px; font-size: 12.5px; flex-wrap: wrap; }
+.blk .tools { display: flex; gap: 10px; margin-top: 6px; font-size: 12.5px; }
 .blk .tools button, .blk .tools a { background: none; border: 0; color: var(--accent); cursor: pointer; padding: 0; font-size: 12.5px; text-decoration: none; }
 .blk .tools a:hover, .blk .tools button:hover { text-decoration: underline; }
 mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1px; }
 .more { display: block; margin: 12px auto; }
+.help { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; font-size: 14px; }
+.help code { background: var(--chip); padding: 1px 5px; border-radius: 4px; }
 .k-Carte { --kc: var(--k-carte); } .k-Valeurs { --kc: var(--k-val); } .k-CR { --kc: var(--k-cr); } .k-Box { --kc: var(--k-box); }
-.k-Texte { --kc: var(--k-txt); } .k-Figure { --kc: var(--k-fig); } .k-Tableau { --kc: var(--k-tab); } .k-Cas { --kc: var(--k-cas); }
+.k-Texte { --kc: var(--k-txt); } .k-Figure { --kc: var(--k-fig); } .k-Tableau { --kc: var(--k-tab); }
 .blk .ti.pv { cursor: pointer; }
 .blk .ti.pv:hover { text-decoration: underline; }
-/* accueil */
-.welcome { display: grid; gap: 14px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; box-shadow: var(--shadow); }
-.card h3 { margin: 0 0 8px; font-size: 15px; }
-.card p { margin: 4px 0; }
-.muted { color: var(--muted); }
-.small { font-size: 13px; }
-.shortcuts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-.shortcut { cursor: pointer; text-decoration: none; color: inherit; display: block; }
-.shortcut:hover { border-color: var(--accent); }
-.shortcut b { color: var(--accent); font-size: 15.5px; }
-details.help summary { cursor: pointer; font-weight: 600; }
-details.help code, .card code { background: var(--chip); padding: 1px 5px; border-radius: 4px; }
-details.help ul { margin: 8px 0 0; padding-left: 20px; }
-/* aperçu */
 #ov { position: fixed; inset: 0; background: rgba(10,14,22,.45); z-index: 20; display: none; }
-#pv { position: fixed; top: 0; right: 0; bottom: 0; width: min(840px, 100%); background: var(--bg); z-index: 21; display: none; flex-direction: column; box-shadow: -8px 0 30px rgba(0,0,0,.25); }
+#pv { position: fixed; top: 0; right: 0; bottom: 0; width: min(820px, 100%); background: var(--bg); z-index: 21; display: none; flex-direction: column; box-shadow: -8px 0 30px rgba(0,0,0,.25); }
 #pv.open, #ov.open { display: flex; }
 #pv .pvh { background: var(--surface); border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; flex-direction: column; gap: 6px; }
 #pv .pvh .r1 { display: flex; align-items: center; gap: 10px; }
+#pv .pvh .r1 a.icon-btn { text-decoration: none; }
 #pv .pvh .r1 b { flex: 1; font-size: 15.5px; color: var(--accent); }
 #pv .pvh .r2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
 #pv .pvh select { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px; padding: 4px 8px; font-size: 13px; max-width: 100%; flex: 1; min-width: 180px; }
@@ -130,37 +100,11 @@ details.help ul { margin: 8px 0 0; padding-left: 20px; }
 #lb { position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.85); display: none; align-items: center; justify-content: center; padding: 16px; cursor: zoom-out; }
 #lb.open { display: flex; }
 #lb img { max-width: 100%; max-height: 100%; border-radius: 6px; background: #fff; }
-/* cours */
-.cgrid { display: grid; grid-template-columns: 250px 1fr; gap: 18px; align-items: start; }
-.cside { position: sticky; top: 76px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 8px; max-height: calc(100vh - 96px); overflow-y: auto; }
-.cside button { display: flex; width: 100%; gap: 8px; align-items: center; text-align: left; border: 0; background: none; color: var(--ink); padding: 7px 9px; border-radius: 8px; cursor: pointer; font-size: 14px; }
-.cside button:hover { background: var(--chip); }
-.cside button.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
-.cside button small { margin-left: auto; color: var(--muted); font-weight: 400; }
-.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--todo); }
-.dot.ok { background: var(--ok); } .dot.part { background: var(--warn); }
-.chead h2 { margin: 0 0 4px; font-size: 22px; color: var(--accent); }
-.chead { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 10px; align-items: end; justify-content: space-between; }
-.dcard { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; box-shadow: var(--shadow); }
-.dcard .dh { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
-.dcard .dh b { font-size: 16px; cursor: pointer; }
-.dcard .dh b:hover { color: var(--accent); }
-.pill { font-size: 11.5px; border-radius: 999px; padding: 1px 8px; background: var(--chip); color: var(--muted); white-space: nowrap; }
-.pill.ok { background: var(--ok-soft); color: var(--ok); font-weight: 600; }
-.pill.dems { background: var(--warn-soft); color: var(--warn); font-weight: 600; }
-.ess { margin: 8px 0 4px; padding-left: 20px; font-size: 14.2px; }
-.ess li { margin: 2px 0; }
-.dact { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.dact button, .dact a { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 13px; text-decoration: none; }
-.dact button:hover, .dact a:hover { border-color: var(--accent); color: var(--accent); }
-.dact button.on { background: var(--accent); color: var(--surface); border-color: var(--accent); }
-.dx { margin-top: 10px; }
-.dx:empty { display: none; }
-details.rep { margin: -4px 0 10px; }
-details.rep summary { cursor: pointer; color: var(--k-cas); font-weight: 600; font-size: 13.5px; padding: 4px 0; }
-.srcl { list-style: none; padding: 0; margin: 0; }
-.srcl li { display: flex; gap: 8px; align-items: baseline; padding: 6px 0; border-bottom: 1px dashed var(--line); font-size: 14.2px; }
-.srcl li a { margin-left: auto; font-size: 12.5px; white-space: nowrap; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; box-shadow: var(--shadow); }
+.card h3 { margin: 0 0 8px; font-size: 15px; }
+.card p { margin: 4px 0; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
 /* mises à jour */
 .hero { display: grid; grid-template-columns: auto 1fr; gap: 6px 22px; align-items: center; }
 .big { font-size: 42px; font-weight: 750; color: var(--accent); line-height: 1; }
@@ -185,54 +129,44 @@ details.rep summary { cursor: pointer; color: var(--k-cas); font-weight: 600; fo
 .decs li { margin: 4px 0; }
 .decs li.dems { background: var(--warn-soft); border-radius: 6px; padding: 2px 6px; list-style-position: inside; margin-left: -20px; }
 .sec-title { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 24px 0 10px; }
+.notice { background: var(--warn-soft); border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: 10px; padding: 8px 12px; font-size: 13.5px; margin: 0 0 12px; }
+.notice b { color: var(--warn); }
+.pill { font-size: 11.5px; border-radius: 999px; padding: 1px 8px; background: var(--chip); color: var(--muted); white-space: nowrap; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); font-weight: 600; }
+.pill.dems { background: var(--warn-soft); color: var(--warn); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.k-Cas { --kc: var(--k-cas); }
 [hidden] { display: none !important; }
-@media (max-width: 760px) {
-  .cgrid { grid-template-columns: 1fr; } .cside { position: static; max-height: 240px; }
-  .trow { grid-template-columns: 1fr 60px; } .trow .bar, .trow .st { display: none; }
-  .blk td:first-child { width: 34%; } .brand span { display: none; }
-}
+@media (max-width: 760px) { .trow { grid-template-columns: 1fr 60px; } .trow .bar, .trow .st { display: none; } }
+@media (max-width: 640px) { .top h1 { display: none; } .blk td:first-child { width: 34%; } }
 </style>
 </head>
 <body>
 <header><div class="wrap">
   <div class="top">
-    <a class="brand" id="brand" href="#recherche">Bak's Radiology<span>radiologie · DEMS 2027</span></a>
-    <nav class="tabs" id="tabs">
-      <a id="homeLink" hidden>Thèmes</a>
-      <button data-v="recherche">Recherche</button>
-      <button data-v="cours" hidden>Cours</button>
-      <button data-v="maj" hidden>Mises à jour v2</button>
-      <a id="aboutLink" hidden>À propos</a>
-    </nav>
-    <span class="sp"></span>
+    <h1><a id="brand" href="#" style="color:inherit;text-decoration:none">Bak's Radiology</a></h1>
+    <div class="searchbox"><input id="q" type="search" placeholder="Pathologie, signe, mesure…  ex. kyste hydatique, « double contour », appendicite -enfant" autocomplete="off" disabled><div id="sugg"></div></div>
+    <a class="icon-btn" id="homebtn" hidden>Thèmes</a><a class="icon-btn" id="majbtn" href="#maj" hidden>Mises à jour v2</a>
     <button class="icon-btn" id="theme" title="Thème clair / sombre">◐</button>
   </div>
-  <div class="searchrow" id="searchrow">
-    <div class="searchbox"><span class="lens">⌕</span><input id="q" type="search" placeholder="Une pathologie, un signe, une question…  ex. lésion lytique épiphysaire de l’enfant" autocomplete="off" disabled><div id="sugg"></div></div>
-    <div class="filters">
-      <span class="seg" id="mode"><button data-m="fiche" class="on" title="Résultats regroupés par type de bloc">Fiche</button><button data-m="liste" title="Résultats classés par pertinence">Liste</button></span>
-      <select id="fth"><option value="">Tous les thèmes</option></select>
-      <select id="fdoc"><option value="">Tous les documents</option></select>
-      <button class="linkbtn" id="moref">Plus de filtres</button>
-    </div>
-    <div class="filters"><span class="chips" id="fkind"></span></div>
-    <div class="filters" id="fcolrow" hidden><span class="muted">Collection :</span><span class="chips" id="fcol"></span></div>
+  <div class="filters" id="filtersrow">
+    <span class="seg" id="mode"><button data-m="fiche" class="on" title="Résultats regroupés par type de bloc">Fiche</button><button data-m="liste" title="Résultats classés par pertinence">Liste</button></span>
+    <select id="fth"><option value="">Tous les thèmes</option></select>
+    <select id="fdoc"><option value="">Tous les documents</option></select>
+    <span id="fcol"></span>
+    <span id="fkind"></span>
   </div>
 </div></header>
 <main class="wrap">
-  <section id="v-recherche">
-    <div id="status">Chargement de l’index…</div>
-    <div id="notice"></div>
-    <div id="res"></div>
-  </section>
-  <section id="v-cours" hidden><div class="cgrid"><aside class="cside" id="cside"></aside><div id="cmain"></div></div></section>
-  <section id="v-maj" hidden></section>
+  <div id="status">Chargement de l’index…</div>
+  <div id="res"></div>
+  <section id="vmaj" hidden></section>
 </main>
 <div id="ov"></div>
 <div id="lb"><img alt=""></div>
 <aside id="pv" aria-label="Aperçu du document">
   <div class="pvh">
-    <div class="r1"><b id="pvt"></b><a id="pvo" class="icon-btn" href="#">Ouvrir</a><button class="icon-btn" id="pvx" title="Fermer (Échap)">✕</button></div>
+    <div class="r1"><b id="pvt"></b><a id="pvo" class="icon-btn" href="#" >Ouvrir</a><button class="icon-btn" id="pvx" title="Fermer (Échap)">✕</button></div>
     <div class="r2"><button class="icon-btn" id="pvp" title="Correspondance précédente">◀</button><span id="pvn"></span><button class="icon-btn" id="pvnx" title="Correspondance suivante">▶</button><select id="pvs" title="Aller à une partie"></select></div>
   </div>
   <div class="pvb" id="pvb"></div>
@@ -246,38 +180,25 @@ const $ = s => document.querySelector(s);
 const fold = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ').replace(/œ/g, 'oe').replace(/æ/g, 'ae');
 const stem = w => (w.length > 4 && /[sx]$/.test(w)) ? w.slice(0, -1) : w;
 const toks = s => (fold(s).match(/[a-z0-9]+/g) || []).map(stem);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const store = { get(k, d) { try { const v = localStorage.getItem('dems_' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
                 set(k, v) { try { localStorage.setItem('dems_' + k, JSON.stringify(v)); } catch (e) {} } };
+const ORDER = ['Carte', 'Valeurs à retenir', 'Cas clinique', 'Pièges', 'Compte rendu type', 'Formulations du service', 'L’essentiel', 'Comprendre', 'Texte', 'Tableau', 'À retenir', 'Encadré', 'Figure'];
+const KCLASS = k => ({ 'Carte': 'Carte', 'Valeurs à retenir': 'Valeurs', 'Compte rendu type': 'CR', 'Formulations du service': 'CR', 'Texte': 'Texte', 'Figure': 'Figure', 'Tableau': 'Tableau', 'Cas clinique': 'Cas' }[k] || 'Box');
+const KBOOST = { 'Carte': 1.5, 'Valeurs à retenir': 1.35, 'Compte rendu type': 1.2, 'Formulations du service': 1.2, 'L’essentiel': 1.1, 'Tableau': 1.05, 'Texte': 1, 'Comprendre': 0.95, 'À retenir': 1.1, 'Pièges': 1.05, 'Encadré': 1, 'Figure': 0.75 };
+let D, B, INV, VOCAB, NB, AVG, SYN, TITLES, DOCB, PHON, DOCKEY;
+const docHref = (d, b) => (b && b.g != null) ? d.p + '#b' + b.g : encodeURI(d.p).replace(/#/g, '%23');
+const openLabel = d => /\.docx$/i.test(d.p) ? 'Ouvrir dans Word' : 'Ouvrir la page';
 const nf = n => n.toLocaleString('fr-FR');
 const PRETTY = { 'Tete': 'Tête', 'mediastin': 'médiastin', 'genital': 'génital', 'Gynecologie': 'Gynécologie', 'Obstetrique': 'Obstétrique', 'Osteo-articulaire': 'Ostéo-articulaire',
   'Pediatrie': 'Pédiatrie', 'Medecine': 'Médecine', 'nucleaire': 'nucléaire' };
 const pretty = th => th ? th.replace(/[A-Za-z-]+/g, w => PRETTY[w] || w) : '';
-const ORDER = ['Carte', 'Valeurs à retenir', 'Cas clinique', 'Pièges', 'Compte rendu type', 'Formulations du service', 'L’essentiel', 'À retenir', 'Comprendre', 'Tableau', 'Texte', 'Encadré', 'Figure'];
-const KCLASS = k => ({ 'Carte': 'Carte', 'Valeurs à retenir': 'Valeurs', 'Compte rendu type': 'CR', 'Formulations du service': 'CR', 'Texte': 'Texte', 'Figure': 'Figure', 'Tableau': 'Tableau', 'Cas clinique': 'Cas' }[k] || 'Box');
-const KBOOST = { 'Carte': 1.5, 'Valeurs à retenir': 1.35, 'Compte rendu type': 1.2, 'Formulations du service': 1.2, 'L’essentiel': 1.1, 'Tableau': 1.05, 'Texte': 1, 'Comprendre': 0.95, 'À retenir': 1.1, 'Pièges': 1.1, 'Cas clinique': 1, 'Encadré': 1, 'Figure': 0.75 };
-const CLASSIF = /classification|stade|stadification|grade|score|criteres|\btnm\b|figo|rads\b|staging/;
-const TYPES = [
-  ['Cas cliniques', b => b.k === 'Cas clinique'],
-  ['Valeurs à retenir', b => b.k === 'Valeurs à retenir'],
-  ['Pièges', b => b.k === 'Pièges'],
-  ['Cartes', b => b.k === 'Carte'],
-  ['Classifications', b => CLASSIF.test(b.tf)],
-  ['Tableaux', b => b.k === 'Tableau'],
-  ['Comptes rendus', b => b.k === 'Compte rendu type' || b.k === 'Formulations du service'],
-  ['Encadrés', b => ['À retenir', 'Comprendre', 'L’essentiel', 'Encadré'].includes(b.k)],
-  ['Figures', b => b.k === 'Figure'],
-  ['Texte', b => b.k === 'Texte'],
-];
-let D, B, INV, VOCAB, NB, AVG, SYN, TITLES, DOCB, PHON, LOCAL = false, DOCKEY;
-const docHref = (d, b) => (b && b.g != null) ? d.p + '#b' + b.g : encodeURI(d.p).replace(/#/g, '%23');
-const openLabel = d => /\.docx$/i.test(d.p) ? 'Ouvrir dans Word' : 'Ouvrir la page';
+
 
 // ---------- chargement ----------
 async function load() {
   const b64 = $('#idx').textContent.trim(); let txt;
   if (b64 && !b64.startsWith('__')) {
-    LOCAL = true;
     const bin = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
     txt = await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
   } else {
@@ -285,6 +206,7 @@ async function load() {
     try { txt = await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text(); } catch (e) { txt = new TextDecoder().decode(buf); }
   }
   D = JSON.parse(txt); B = D.blocks;
+  // texte de chaque bloc et index inversé (titre ×3, chemin ×1.5, contenu ×1)
   INV = new Map(); let total = 0;
   B.forEach((b, i) => {
     const doc = D.docs[b.d];
@@ -305,13 +227,18 @@ async function load() {
   DOCB = D.docs.map(() => []); B.forEach((b, i) => DOCB[b.d].push(i));
   SYN = new Map(); D.syn.forEach(g => { const fs = g.map(x => toks(x).join(' ')); fs.forEach(f => SYN.set(f, fs)); });
   const seen = new Set(); TITLES = [];
-  B.forEach(b => { if ((b.k === 'Carte' || b.k === 'Valeurs à retenir') && !seen.has(b.t)) { seen.add(b.t); TITLES.push([fold(b.t), b.t, D.docs[b.d].n]); } });
-  initFilters(); initTabs();
-  $('#q').disabled = false; $('#q').value = store.get('q', '');
+  B.forEach((b, i) => { if ((b.k === 'Carte' || b.k === 'Valeurs à retenir') && !seen.has(b.t)) { seen.add(b.t); TITLES.push([fold(b.t), b.t, D.docs[b.d].n]); } });
+  initFilters();
+  $('#q').disabled = false; $('#q').value = '';
+  if (CFG.home && !CFG.home.startsWith('__')) { $('#homebtn').href = CFG.home; $('#homebtn').hidden = false; $('#brand').href = CFG.home; }
+  if (D.maj) $('#majbtn').hidden = false;
+  window.addEventListener('hashchange', route);
   route();
 }
 
 // ---------- requête ----------
+// Mots reliés par ET, puis élargissement aux blocs qui en contiennent la plupart ; fautes tolérées ; « valeurs », « pièges », « cas »… orientent le classement.
+const CLASSIF = /classification|stade|stadification|grade|score|criteres|\btnm\b|figo|rads\b|staging/;
 const STOP = new Set('de du des d la le les l un une et ou en au aux a chez sur dans par pour avec quel quelle quel quelles comment pourquoi quoi qu que qui est sont faire devant lors se sa son ses ce cette cet on y il elle ils the of and in to'.split(' '));
 const INTENTS = [
   { re: /^(valeur|seuil|mesure|normale?|chiffre|norme|limite)$/, k: { 'Valeurs à retenir': 2.3, 'Tableau': 1.3 }, label: 'valeurs à retenir' },
@@ -439,132 +366,103 @@ function search(q) {
 }
 
 // ---------- filtres ----------
-const F = { th: '', doc: '', col: new Set(store.get('col_sel', [])), kind: new Set(store.get('type_sel', [])), mode: store.get('mode', 'fiche') };
+const F = { th: '', doc: '', col: new Set(store.get('col_sel', [])), kind: new Set(store.get('kind_sel', [])), mode: store.get('mode', 'fiche') };
 function initFilters() {
   const ths = [...new Set(D.docs.map(d => d.th).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }));
-  ths.forEach(t => $('#fth').insertAdjacentHTML('beforeend', `<option value="${esc(t)}">${esc(pretty(t))}</option>`));
+  ths.forEach(t => $('#fth').insertAdjacentHTML('beforeend', `<option>${esc(t)}</option>`));
   const fillDocs = () => { $('#fdoc').innerHTML = '<option value="">Tous les documents</option>' + D.docs.map((d, i) => [d, i]).filter(([d]) => !F.th || d.th === F.th)
       .map(([d, i]) => `<option value="${i}">${esc(d.n)}</option>`).join(''); };
   fillDocs();
   $('#fth').onchange = e => { F.th = e.target.value; F.doc = ''; fillDocs(); run(); };
   $('#fdoc').onchange = e => { F.doc = e.target.value; run(); };
   const cols = [...new Set(D.docs.map(d => d.c))];
-  $('#fcol').onclick = e => { const t = e.target.closest('.chip'); if (!t) return; if (t.dataset.reset) F.col.clear(); else { const c = t.dataset.c; F.col.has(c) ? F.col.delete(c) : F.col.add(c); } store.set('col_sel', [...F.col]); drawCols(cols); run(); };
-  drawCols(cols);
-  if (F.col.size) $('#fcolrow').hidden = false;
-  $('#moref').onclick = () => { $('#fcolrow').hidden = !$('#fcolrow').hidden; };
-  $('#fkind').onclick = e => { const t = e.target.closest('.chip'); if (!t) return; if (t.dataset.reset) F.kind.clear(); else { const c = t.dataset.k; F.kind.has(c) ? F.kind.delete(c) : F.kind.add(c); } store.set('type_sel', [...F.kind]); if (LAST) render(false); };
+  const chips = (box, items, set, key, attr) => {
+    const draw = () => { box.innerHTML = items.map(c => `<span class="chip${set.has(c) ? ' on' : ''}" data-${attr}="${esc(c)}" title="Afficher seulement : ${esc(c)} (cliquez à nouveau pour retirer)">${esc(c)}</span>`).join(' ')
+      + (set.size ? ` <span class="chip reset" data-reset="1" title="Retirer ce filtre">tout</span>` : ''); };
+    draw();
+    box.onclick = e => { const t = e.target; if (t.dataset.reset) set.clear(); else { const c = t.dataset[attr]; if (!c) return; set.has(c) ? set.delete(c) : set.add(c); }
+      store.set(key, [...set]); draw(); run(); };
+  };
+  chips($('#fcol'), cols, F.col, 'col_sel', 'c');
+  const kinds = ORDER.filter(k => B.some(b => b.k === k));
+  chips($('#fkind'), kinds, F.kind, 'kind_sel', 'k');
   document.querySelectorAll('#mode button').forEach(b => { b.classList.toggle('on', b.dataset.m === F.mode);
-    b.onclick = () => { F.mode = b.dataset.m; store.set('mode', F.mode); document.querySelectorAll('#mode button').forEach(x => x.classList.toggle('on', x === b)); if (LAST) render(false); }; });
+    b.onclick = () => { F.mode = b.dataset.m; store.set('mode', F.mode); document.querySelectorAll('#mode button').forEach(x => x.classList.toggle('on', x === b)); run(); }; });
 }
-function drawCols(cols) {
-  $('#fcol').innerHTML = cols.map(c => `<span class="chip${F.col.has(c) ? ' on' : ''}" data-c="${esc(c)}">${esc(c)}</span>`).join('') + (F.col.size ? '<span class="chip reset" data-reset="1">toutes</span>' : '');
-}
-const passBase = i => { const b = B[i], d = D.docs[b.d]; return (!F.th || d.th === F.th) && (F.doc === '' || +F.doc === b.d) && (!F.col.size || F.col.has(d.c)); };
-const passKind = i => !F.kind.size || TYPES.some(([n, f]) => F.kind.has(n) && f(B[i]));
-function drawKinds(base) {
-  const counts = TYPES.map(([n, f]) => [n, base.reduce((a, [i]) => a + (f(B[i]) ? 1 : 0), 0)]);
-  $('#fkind').innerHTML = counts.map(([n, c]) => `<span class="chip${F.kind.has(n) ? ' on' : ''}${c ? '' : ' zero'}" data-k="${esc(n)}" title="Afficher seulement : ${esc(n)} (plusieurs choix possibles)">${esc(n)}<span class="n">${nf(c)}</span></span>`).join('')
-    + (F.kind.size ? '<span class="chip reset" data-reset="1">tous les types</span>' : '');
-}
+const pass = i => { const b = B[i], d = D.docs[b.d]; return (!F.th || d.th === F.th) && (F.doc === '' || +F.doc === b.d) && (!F.col.size || F.col.has(d.c)) && (!F.kind.size || F.kind.has(b.k)); };
 
-// ---------- affichage d'un bloc ----------
-function foldPos(text) { return [...text].map(c => fold(c)[0] || c).join(''); }
+// ---------- affichage ----------
 function hl(text, terms, phrases) {
   if (!terms.length && !phrases.length) return esc(text);
-  const f = foldPos(text), marks = new Uint8Array(text.length);
+  const f = [...text].map(c => fold(c)[0] || c).join('');  // repliement caractère par caractère (positions conservées)
+  const marks = new Uint8Array(text.length);
   terms.forEach(t => { const re = new RegExp('(^|[^a-z0-9])(' + t + '[a-z0-9]*)', 'g'); let m; while ((m = re.exec(f))) { const s = m.index + m[1].length; marks.fill(1, s, s + m[2].length); } });
   phrases.forEach(p => { let k = f.indexOf(p); while (k >= 0) { marks.fill(1, k, k + p.length); k = f.indexOf(p, k + 1); } });
   let out = '', on = false;
   for (let k = 0; k < text.length; k++) { if (marks[k] && !on) { out += '<mark>'; on = true; } if (!marks[k] && on) { out += '</mark>'; on = false; } out += esc(text[k]); }
   return out + (on ? '</mark>' : '');
 }
-function blockHTML(i, terms = [], phrases = [], full = false) {
-  const b = B[i], d = D.docs[b.d], href = docHref(d, b);
+function blockHTML(i, terms, phrases, full) {
+  const b = B[i], d = D.docs[b.d];
+  const href = docHref(d, b);
   const bc = [`<a href="${href}" title="${openLabel(d)}">${esc(d.n)}</a>`, ...(b.h || []).map(esc)].join(' › ');
   let body = '';
   if (b.r) {
-    const head = (b.k === 'Valeurs à retenir' || b.k === 'Tableau') ? b.r[0] : null;
-    let data = head ? b.r.slice(1) : b.r, hidden = 0;
-    if (!full && b.k === 'Tableau' && data.length > 8 && terms.length) {
+    let rows = b.r; const head = (b.k === 'Valeurs à retenir' || b.k === 'Tableau') ? rows[0] : null;
+    let data = head ? rows.slice(1) : rows; let hidden = 0;
+    if (!full && b.k === 'Tableau' && data.length > 8) {
       const f = data.filter(r => terms.some(t => fold(r.join(' ')).match(new RegExp('(^|[^a-z0-9])' + t))) || phrases.some(p => fold(r.join(' ')).includes(p)));
       if (f.length && f.length < data.length) { hidden = data.length - f.length; data = f; }
     }
     body = '<table>' + (head ? '<tr>' + head.map(c => `<th>${hl(c, terms, phrases)}</th>`).join('') + '</tr>' : '') +
       data.map(r => '<tr>' + r.map(c => `<td>${hl(c, terms, phrases)}</td>`).join('') + '</tr>').join('') + '</table>' +
       (hidden ? `<div class="tools"><button data-full="${i}">Afficher les ${hidden} autres lignes</button></div>` : '');
-  } else body = `<div class="tx">${hl(b.x || '', terms, phrases)}</div>`;
-  if (b.im) body = `<div class="figs">${b.im.map(n => `<img loading="lazy" src="${D.imgdir}${n}.jpg" alt="Figure" data-zoom="1">`).join('')}</div>` + body + (b.cr ? `<div class="cr">${esc(b.cr)}</div>` : '');
-  return `<div class="blk k-${KCLASS(b.k)}" data-i="${i}" id="b${i}"><div class="hd"><span class="badge">${esc(b.k)}</span><span class="ti pv" data-pv="${i}" title="Lire dans le document">${hl(b.t, terms, phrases)}</span></div>
-    <div class="bc">${esc(pretty(d.th))} › ${bc}</div>${body}<div class="tools"><button data-pv="${i}">Lire dans le document</button><button data-copy="${i}">Copier</button><a href="${href}">${openLabel(d)}</a></div></div>`;
+  } else body = `<div class="tx">${hl(b.x, terms, phrases)}</div>`;
+  if (b.im) body = `<div class="figs">${b.im.map(n => `<img loading="lazy" src="${D.imgdir}${n}.jpg" alt="Figure" data-zoom="1">`).join('')}</div>` + body + (b.cr ? `<div class="bc">${esc(b.cr)}</div>` : '');
+  return `<div class="blk k-${KCLASS(b.k)}" data-i="${i}" id="b${i}"><div class="hd"><span class="badge">${esc(b.k)}</span><span class="ti pv" data-pv="${i}" title="Aperçu dans le document">${hl(b.t, terms, phrases)}</span></div>
+    <div class="bc">${esc(d.th)} › ${bc}</div>${body}<div class="tools"><button data-pv="${i}">Aperçu</button><button data-copy="${i}">Copier</button><a href="${href}">${openLabel(d)}</a></div></div>`;
 }
-function original(term, i) {   // forme accentuée d'un mot replié, prise dans le bloc
-  const b = B[i], txt = b.t + '\n' + b.body, f = foldPos(txt), m = new RegExp('(^|[^a-z0-9])(' + term + '[a-z0-9]*)').exec(f);
-  return m ? txt.substr(m.index + m[1].length, m[2].length) : term;
-}
-
-// ---------- recherche : rendu ----------
 let LAST = null, SHOWN = 0;
 function render(append) {
-  const { hits, terms, phrases, fixes, intents, partial } = LAST; const res = $('#res');
-  const base = hits.filter(([i]) => passBase(i));
-  drawKinds(base);
-  const list = base.filter(([i]) => passKind(i));
+  const { hits, terms, phrases } = LAST; const res = $('#res');
+  const list = hits.filter(([i]) => pass(i));
   if (!append) {
     res.innerHTML = ''; SHOWN = 0;
-    const notes = [];
-    if (fixes.length && list.length) notes.push('<b>Orthographe corrigée :</b> ' + fixes.map(([a, b]) => `${esc(a)} → <b>${esc(original(b, list[0][0]))}</b>`).join(', '));
-    if (partial) notes.push('<b>Aucun bloc ne contient tous les mots</b> : voici les plus proches (la plupart des mots présents).');
+    const { fixes, intents, partial } = LAST, notes = [];
+    if (fixes.length && list.length) notes.push('<b>Orthographe corrigée :</b> ' + fixes.map(([a, b]) => `${esc(a)} → <b>${esc(b)}</b>`).join(', '));
+    if (partial) notes.push('<b>Aucun bloc ne contient tous les mots</b> : voici les plus proches.');
     if (intents.length) notes.push('Priorité donnée aux <b>' + intents.map(x => x.label).join('</b>, <b>') + '</b>.');
-    $('#notice').innerHTML = notes.length ? `<div class="notice">${notes.join('<br>')}</div>` : '';
+    if (notes.length && list.length) res.innerHTML = `<div class="notice">${notes.join('<br>')}</div>`;
   }
-  if (!list.length) { res.innerHTML = `<div class="card">Aucun résultat${F.kind.size || F.th || F.doc !== '' || F.col.size ? ' avec ces filtres — <button class="linkbtn" id="clearf">retirer les filtres</button>' : ''}. Essayez un mot plus court (début de mot), une abréviation ou une autre formulation.</div>`;
-    $('#status').textContent = '0 résultat'; const cf = $('#clearf'); if (cf) cf.onclick = clearFilters; return; }
-  const step = 120, slice = list.slice(SHOWN, SHOWN + step); SHOWN += slice.length;
+  if (!list.length) { res.innerHTML = '<div class="help">Aucun bloc ne correspond. Essayez un terme plus court (préfixe), une abréviation, ou retirez des filtres.</div>'; return; }
+  const step = 150, slice = list.slice(SHOWN, SHOWN + step); SHOWN += slice.length;
   let html = '';
   if (F.mode === 'fiche') {
-    // groupes par type, dans l'ordre du meilleur résultat de chaque groupe
     const byK = new Map(); slice.forEach(([i]) => { const k = B[i].k; if (!byK.has(k)) byK.set(k, []); byK.get(k).push(i); });
-    [...byK.keys()].forEach(k => { if (byK.has(k)) html += `<div class="group"><h2>${esc(k)} · ${byK.get(k).length}</h2>` + byK.get(k).map(i => blockHTML(i, terms, phrases)).join('') + '</div>'; });
+    ORDER.forEach(k => { if (byK.has(k)) html += `<div class="group"><h2>${esc(k)} · ${byK.get(k).length}</h2>` + byK.get(k).map(i => blockHTML(i, terms, phrases)).join('') + '</div>'; });
   } else html = slice.map(([i]) => blockHTML(i, terms, phrases)).join('');
   const old = res.querySelector('.more'); if (old) old.remove();
   res.insertAdjacentHTML('beforeend', html);
-  if (SHOWN < list.length) res.insertAdjacentHTML('beforeend', `<button class="icon-btn more">Afficher plus (${nf(list.length - SHOWN)} restants)</button>`);
+  if (SHOWN < list.length) res.insertAdjacentHTML('beforeend', `<button class="icon-btn more">Afficher plus (${list.length - SHOWN} restants)</button>`);
   const docs = new Set(list.map(([i]) => B[i].d)).size;
-  $('#status').textContent = `${nf(list.length)} résultats dans ${docs} documents` + (list.length > SHOWN ? ` · ${SHOWN} affichés` : '');
+  $('#status').textContent = `${list.length.toLocaleString('fr-FR')} blocs dans ${docs} documents` + (list.length > SHOWN ? ` · ${SHOWN} affichés` : '');
 }
-function clearFilters() { F.kind.clear(); F.col.clear(); F.th = ''; F.doc = ''; $('#fth').value = ''; $('#fth').onchange({ target: { value: '' } }); store.set('type_sel', []); store.set('col_sel', []); drawCols([...new Set(D.docs.map(d => d.c))]); run(); }
-const EXAMPLES = ['lésion lytique épiphysaire enfant', 'valeurs normales rate', 'pièges appendicite', 'cas clinique ostéonécrose', 'classification de Garden', 'kienbok', 'différentiel masse surrénalienne', '"signe du croissant"'];
-function welcome() {
-  const rec = store.get('recent', []);
-  const enr = D.maj ? D.maj.themes.reduce((a, t) => a + t.docs.filter(d => d.ok).length, 0) : 0, tot = D.maj ? D.maj.themes.reduce((a, t) => a + t.docs.length, 0) : 0;
-  $('#notice').innerHTML = ''; $('#fkind').innerHTML = '';
-  $('#status').textContent = `${D.docs.length} documents · ${nf(NB)} blocs · index du ${D.built}`;
-  $('#res').innerHTML = `<div class="welcome">
-    <div class="card"><h3>Que cherchez-vous ?</h3><p class="muted small">Écrivez comme vous parlez : une pathologie, un signe, une mesure ou une question. Les fautes et les accents sont tolérés.</p>
-      <div class="chips" style="margin-top:8px">${EXAMPLES.map(x => `<span class="chip" data-q="${esc(x)}">${esc(x)}</span>`).join('')}</div>
-      ${rec.length ? `<p class="muted small" style="margin-top:12px">Recherches récentes</p><div class="chips">${rec.map(x => `<span class="chip" data-q="${esc(x)}">${esc(x)}</span>`).join('')}<span class="chip reset" id="clrrec">effacer</span></div>` : ''}</div>
-    <div class="shortcuts">
-      ${D.cours !== false ? `<a class="card shortcut" href="#cours"><b>Cours par thème →</b><p class="muted small">L’essentiel, valeurs à retenir, pièges et cas cliniques de chaque résumé${D.cat ? ', et les cours sources (AZ DEMS, Spécial DEMS, SFR, MRI Online)' : ''}.</p></a>` : ''}
-      ${D.maj ? `<a class="card shortcut" href="#maj"><b>Mises à jour v2 →</b><p class="muted small">Enrichissement : ${enr} / ${tot} documents (${Math.round(100 * enr / tot)} %), journal et décisions à trancher.</p></a>` : ''}
-    </div>
-    <details class="help card"><summary>Astuces de recherche</summary><ul>
-      <li><b>Question libre</b> : <code>lésion lytique épiphysaire de l’enfant</code> — les petits mots sont ignorés ; si aucun bloc ne contient tout, les plus proches s’affichent.</li>
-      <li><b>Intentions</b> : ajoutez <code>valeurs</code>, <code>pièges</code>, <code>cas</code>, <code>différentiel</code>, <code>classification</code> ou <code>compte rendu</code> pour faire remonter ces blocs.</li>
-      <li><b>Fautes tolérées</b> : <code>kienbok</code>, <code>pheochromocitome</code>, <code>osteonecrose</code>. Le dernier mot est complété (<code>append</code> → appendicite).</li>
-      <li><b>Abréviations</b> : <code>VBP</code>, <code>KH</code>, <code>TVP</code>, <code>EP</code>, <code>LCA</code>, <code>DDB</code>…</li>
-      <li><code>"phrase exacte"</code> entre guillemets ; <code>-mot</code> pour exclure. Raccourci <code>/</code> pour revenir à la recherche.</li>
-      <li>Cliquez sur le titre d’un bloc pour <b>lire le document à cet endroit</b> ; ◀ ▶ passent d’une correspondance à l’autre.</li></ul></details>
-  </div>`;
-  const c = $('#clrrec'); if (c) c.onclick = () => { store.set('recent', []); welcome(); };
+function helpHTML() {
+  return `<div class="help"><b>Comment chercher</b><ul>
+  <li><b>Question libre</b> : <code>lésion lytique épiphysaire de l’enfant</code> — les petits mots sont ignorés ; si aucun bloc ne contient tout, les plus proches s’affichent. Les <b>fautes</b> sont tolérées (<code>kienbok</code>, <code>pheochromocitome</code>).</li>
+  <li>Ajoutez <code>valeurs</code>, <code>pièges</code>, <code>cas</code>, <code>différentiel</code>, <code>classification</code> ou <code>compte rendu</code> pour faire remonter ces blocs.</li>
+  <li>Tapez une <b>pathologie</b> ou un <b>signe</b> : <code>kyste hydatique</code>, <code>double contour</code>, <code>appendicite</code>. Les accents et le pluriel sont ignorés ; le dernier mot est complété (<code>append</code> trouve appendice, appendicite).</li>
+  <li><b>Abréviations et synonymes</b> reconnus : <code>VBP</code>, <code>KH</code>, <code>TVP</code>, <code>EP</code>, <code>HTP</code>, <code>DDB</code>…</li>
+  <li><code>"phrase exacte"</code> entre guillemets ; <code>-mot</code> pour exclure (<code>appendicite -enfant</code>).</li>
+  <li><b>Images</b> : les figures s’affichent avec leur légende ; cliquez sur une image pour l’agrandir.</li>
+  <li><b>Aperçu</b> : cliquez sur le titre d’un bloc (ou « Aperçu ») pour lire le document entier à cet endroit, mots surlignés ; ◀ ▶ (ou flèches du clavier) passent d’une correspondance à l’autre, « Aller à une partie » sert de sommaire, Échap ferme.</li>
+  <li>Mode <b>Fiche</b> : tous les blocs regroupés par type (carte, valeurs à retenir, compte rendu type, pièges…) — idéal pour réviser une pathologie. Mode <b>Liste</b> : classement par pertinence.</li>
+  <li>Filtres : thème, document, collection et type de bloc : cliquez sur une ou plusieurs puces pour n’afficher que celles-ci, « tout » pour revenir. Raccourci : <code>/</code> pour revenir à la recherche.</li></ul></div>`;
 }
-let recTimer;
 function run() {
-  const q = $('#q').value.trim(); store.set('q', q);
-  if (!q) { LAST = null; welcome(); return; }
+  const q = $('#q').value.trim();
+  if (!q) { $('#res').innerHTML = helpHTML(); return; }
   LAST = search(q); render(false);
-  clearTimeout(recTimer);
-  if (q.length >= 3) recTimer = setTimeout(() => { const r = store.get('recent', []).filter(x => x !== q); r.unshift(q); store.set('recent', r.slice(0, 8)); }, 1500);
 }
 // ---------- suggestions ----------
 let sel = -1;
@@ -576,7 +474,7 @@ function suggest() {
   box.innerHTML = out.map(t => `<div data-v="${esc(t[1])}">${esc(t[1])} <small>— ${esc(t[2])}</small></div>`).join(''); box.style.display = 'block';
 }
 let timer;
-$('#q').addEventListener('input', () => { suggest(); clearTimeout(timer); timer = setTimeout(run, 200); });
+$('#q').addEventListener('input', () => { suggest(); clearTimeout(timer); timer = setTimeout(run, 180); });
 $('#q').addEventListener('keydown', e => {
   const items = [...document.querySelectorAll('#sugg div')];
   if (e.key === 'ArrowDown' && items.length) { sel = (sel + 1) % items.length; items.forEach((x, k) => x.classList.toggle('on', k === sel)); e.preventDefault(); }
@@ -586,15 +484,13 @@ $('#q').addEventListener('keydown', e => {
 });
 $('#sugg').addEventListener('mousedown', e => { const d = e.target.closest('div[data-v]'); if (d) { $('#q').value = d.dataset.v; $('#sugg').style.display = 'none'; run(); } });
 document.addEventListener('click', e => { if (!e.target.closest('.searchbox')) $('#sugg').style.display = 'none'; });
-document.addEventListener('keydown', e => { if (e.key === '/' && !/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); location.hash = 'recherche'; $('#q').focus(); $('#q').select(); } });
-
-// ---------- aperçu : document reconstitué, centré sur un bloc ----------
+document.addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== $('#q')) { e.preventDefault(); $('#q').focus(); $('#q').select(); } });
+// ---------- aperçu : document reconstitué, centré sur le bloc ----------
 let PV = { hits: [], k: 0 };
 function preview(i) {
   const b0 = B[i], d = D.docs[b0.d], ids = DOCB[b0.d];
-  const inSearch = !$('#v-recherche').hidden && LAST;
-  const terms = inSearch ? LAST.terms : [], phrases = inSearch ? (LAST.phrases || []) : [];
-  const inRes = new Set(inSearch ? LAST.hits.map(([j]) => j) : []);
+  const terms = LAST ? LAST.terms : [], phrases = LAST ? (LAST.phrases || []) : [];
+  const inRes = new Set(LAST ? LAST.hits.map(([j]) => j) : []);
   let html = '', h1 = null, h2 = null; const toc = [];
   ids.forEach(j => {
     const h = B[j].h || [];
@@ -604,14 +500,14 @@ function preview(i) {
   });
   $('#pvb').innerHTML = html;
   $('#pvt').textContent = d.n; $('#pvo').href = docHref(d, b0); $('#pvo').textContent = openLabel(d);
-  $('#pvs').innerHTML = '<option value="">Aller à une partie…</option>' + toc.map(([j, t, l]) => `<option value="${j}">${l === 2 ? '  ' : ''}${esc(t)}</option>`).join('');
+  $('#pvs').innerHTML = '<option value="">Aller à une partie…</option>' + toc.map(([j, t, l]) => `<option value="${j}">${l === 2 ? ' ' : ''}${esc(t)}</option>`).join('');
   PV.hits = ids.filter(j => inRes.has(j)); PV.k = Math.max(0, PV.hits.indexOf(i));
   $('#pv').classList.add('open'); $('#ov').classList.add('open'); document.body.style.overflow = 'hidden';
   pvNav(0, i);
 }
 function pvNav(step, target) {
   if (target == null) { if (!PV.hits.length) return; PV.k = (PV.k + step + PV.hits.length) % PV.hits.length; target = PV.hits[PV.k]; }
-  $('#pvn').textContent = PV.hits.length ? `correspondance ${PV.k + 1} / ${PV.hits.length} dans ce document` : '';
+  $('#pvn').textContent = PV.hits.length ? `correspondance ${PV.k + 1} / ${PV.hits.length} dans ce document` : 'aucune autre correspondance';
   document.querySelectorAll('#pvb .blk.target').forEach(x => x.classList.remove('target'));
   const el = document.getElementById('p' + target); if (!el) return;
   el.classList.add('target'); el.scrollIntoView({ block: 'start' }); $('#pvb').scrollTop -= 12;
@@ -620,25 +516,27 @@ function pvClose() { $('#pv').classList.remove('open'); $('#ov').classList.remov
 $('#pvx').onclick = pvClose; $('#ov').onclick = pvClose;
 $('#pvp').onclick = () => pvNav(-1); $('#pvnx').onclick = () => pvNav(1);
 $('#pvs').onchange = e => { const j = e.target.value; if (j) { const el = document.getElementById('t' + j); if (el) el.scrollIntoView({ block: 'start' }); } e.target.value = ''; };
-function copyBlock(btn, i) {
-  const b = B[i]; const t = b.t + '\n' + (b.r ? b.r.map(r => r.join(' : ')).join('\n') : b.x);
-  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { btn.textContent = 'Copié ✓'; setTimeout(() => btn.textContent = 'Copier', 1500); }).catch(() => {});
-}
+$('#pvb').addEventListener('click', e => {
+  const c = e.target.dataset.copy, f = e.target.dataset.full, p = e.target.dataset.pv;
+  if (p != null) { pvNav(0, +p); return; }
+  if (f != null) return;
+  if (c != null) { const b = B[+c]; const t = b.t + '\n' + (b.r ? b.r.map(r => r.join(' : ')).join('\n') : b.x);
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { e.target.textContent = 'Copié ✓'; setTimeout(() => e.target.textContent = 'Copier', 1500); }).catch(() => {}); }
+});
 document.addEventListener('keydown', e => {
   if (!$('#pv').classList.contains('open')) return;
   if (e.key === 'Escape') pvClose();
-  else if (e.key === 'ArrowRight') pvNav(1);
-  else if (e.key === 'ArrowLeft') pvNav(-1);
+  else if (e.key === 'ArrowRight' || e.key === 'n') pvNav(1);
+  else if (e.key === 'ArrowLeft' || e.key === 'p') pvNav(-1);
 });
-// clics délégués (résultats, aperçu, cours)
-document.addEventListener('click', e => {
-  const t = e.target;
-  if (t.dataset && t.dataset.q != null) { $('#q').value = t.dataset.q; location.hash = 'recherche'; run(); return; }
-  if (t.classList.contains('more')) { render(true); return; }
-  if (t.dataset && t.dataset.copy != null) { copyBlock(t, +t.dataset.copy); return; }
-  if (t.dataset && t.dataset.full != null) { const el = t.closest('.blk'); el.outerHTML = blockHTML(+t.dataset.full, LAST ? LAST.terms : [], LAST ? LAST.phrases : [], true); return; }
-  const pv = t.closest('[data-pv]');
-  if (pv) { if (t.closest('#pvb')) pvNav(0, +pv.dataset.pv); else preview(+pv.dataset.pv); }
+$('#vmaj').addEventListener('click', e => { const p = e.target.closest('[data-pv]'); if (p) preview(+p.dataset.pv); });
+$('#res').addEventListener('click', e => {
+  const c = e.target.dataset.copy, f = e.target.dataset.full, pv = e.target.closest('[data-pv]');
+  if (e.target.classList.contains('more')) { render(true); return; }
+  if (pv) { preview(+pv.dataset.pv); return; }
+  if (f != null) { const el = e.target.closest('.blk'); el.outerHTML = blockHTML(+f, LAST.terms, LAST.phrases || [], true); return; }
+  if (c != null) { const b = B[+c]; const t = b.t + '\n' + (b.r ? b.r.map(r => r.join(' : ')).join('\n') : b.x);
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { e.target.textContent = 'Copié ✓'; setTimeout(() => e.target.textContent = 'Copier', 1500); }).catch(() => {}); }
 });
 // ---------- agrandissement des images ----------
 document.addEventListener('click', e => {
@@ -646,101 +544,19 @@ document.addEventListener('click', e => {
   if (e.target.closest('#lb')) $('#lb').classList.remove('open');
 }, true);
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#lb').classList.contains('open')) { $('#lb').classList.remove('open'); e.stopImmediatePropagation(); } }, true);
-
-// ---------- onglets et navigation ----------
-function initTabs() {
-  if (CFG.home && !CFG.home.startsWith('__')) { const h = $('#homeLink'); h.href = CFG.home; h.hidden = false; $('#brand').href = CFG.home; }
-  if (CFG.about && !CFG.about.startsWith('__')) { const a = $('#aboutLink'); a.href = CFG.about; a.hidden = false; }
-  $('#tabs [data-v="cours"]').hidden = false;
-  $('#tabs [data-v="maj"]').hidden = !D.maj;
-  document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { location.hash = b.dataset.v; });
-  window.addEventListener('hashchange', route);
-}
-let CUR = '';
+// ---------- navigation : recherche / mises à jour v2 ----------
 function route() {
-  const h = decodeURIComponent(location.hash.slice(1));
-  let v = h.split('/')[0];
-  if (!['recherche', 'cours', 'maj'].includes(v)) v = (CFG.view && !CFG.view.startsWith('__')) ? CFG.view : 'recherche';
+  let v = location.hash.slice(1);
+  if (v !== 'maj' && v !== 'recherche') v = (CFG.view && !CFG.view.startsWith('__')) ? CFG.view : 'recherche';
   if (v === 'maj' && !D.maj) v = 'recherche';
-  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
-  ['recherche', 'cours', 'maj'].forEach(x => $('#v-' + x).hidden = x !== v);
-  $('#searchrow').hidden = v !== 'recherche';
-  document.title = { recherche: 'Recherche', cours: 'Cours', maj: 'Mises à jour v2' }[v] + ' — ' + $('#brand').firstChild.textContent;
-  const arg = h.split('/').slice(1).join('/');
-  if (v === 'recherche' && arg) { $('#q').value = arg; CUR = ''; history.replaceState(null, '', '#recherche'); }   // lien direct #recherche/<requête>
-  if (v === 'recherche') { if (CUR !== 'recherche') { run(); $('#q').focus(); } }
-  else if (v === 'cours') showCours(h.split('/').slice(1).join('/'));
-  else if (v === 'maj' && CUR !== 'maj') showMaj();
-  CUR = v; pvClose(); window.scrollTo(0, 0);
+  const m = v === 'maj';
+  $('#vmaj').hidden = !m; $('#status').hidden = m; $('#res').hidden = m;
+  document.querySelectorAll('.searchbox, #filtersrow').forEach(x => x.hidden = m);
+  $('#majbtn').textContent = m ? 'Recherche' : 'Mises à jour v2'; $('#majbtn').href = m ? '#recherche' : '#maj';
+  if (m) showMaj();
+  else { $('#status').textContent = `${D.docs.length} documents · ${nf(NB)} blocs indexés · index du ${D.built}`; run(); $('#q').focus(); }
+  window.scrollTo(0, 0);
 }
-
-// ---------- vue « Cours » ----------
-function themeList() {
-  const ths = [...new Set(D.docs.map(d => d.th).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }));
-  if (D.cat && D.cat.themes['Transversal']) ths.push('Transversal');
-  return ths;
-}
-function majTheme(th) { return D.maj ? D.maj.themes.find(t => t.th === th) : null; }
-function showCours(sub) {
-  const ths = themeList();
-  const [thArg, mode] = sub.split('|');
-  const th = ths.includes(thArg) ? thArg : store.get('cours_th', ths[0]);
-  store.set('cours_th', th);
-  $('#cside').innerHTML = '<div class="muted small" style="padding:4px 9px 6px">Thèmes</div>' + ths.map(t => {
-    const m = majTheme(t), n = D.docs.filter(d => d.th === t).length;
-    const st = m ? (m.docs.every(x => x.ok) ? 'ok' : m.docs.some(x => x.ok) ? 'part' : '') : '';
-    return `<button data-th="${esc(t)}" class="${t === th ? 'on' : ''}"><span class="dot ${st}" title="${st === 'ok' ? 'enrichi' : st === 'part' ? 'enrichissement en cours' : ''}"></span>${esc(pretty(t))}<small>${n || ''}</small></button>`;
-  }).join('');
-  $('#cside').onclick = e => { const b = e.target.closest('button[data-th]'); if (b) location.hash = 'cours/' + encodeURIComponent(b.dataset.th); };
-  const docs = D.docs.map((d, i) => [d, i]).filter(([d]) => d.th === th);
-  const src = D.cat ? (D.cat.themes[th] || []) : [];
-  const m = majTheme(th);
-  const view = th === 'Transversal' ? 'src' : (mode === 'src' && src.length ? 'src' : 'res');
-  const ncas = docs.reduce((a, [, i]) => a + DOCB[i].filter(j => B[j].k === 'Cas clinique' && /^pr[ée]sentation/i.test(B[j].t)).length, 0);
-  let html = `<div class="chead"><div><h2>${esc(pretty(th))}</h2><div class="muted small">${docs.length ? `${docs.length} résumés · ${ncas} cas cliniques` : ''}${m ? ` · enrichis ${m.docs.filter(x => x.ok).length}/${m.docs.length}` : ''}${src.length ? ` · ${src.length} cours sources` : ''}</div></div>
-    ${docs.length && src.length ? `<span class="seg"><button data-cm="res" class="${view === 'res' ? 'on' : ''}">Résumés</button><button data-cm="src" class="${view === 'src' ? 'on' : ''}">Cours sources</button></span>` : ''}</div>`;
-  if (view === 'res') html += docs.map(([d, i]) => docCard(d, i, m)).join('');
-  else html += sourcesHTML(src);
-  $('#cmain').innerHTML = html;
-  $('#cmain').querySelectorAll('[data-cm]').forEach(b => b.onclick = () => { location.hash = 'cours/' + encodeURIComponent(th) + (b.dataset.cm === 'src' ? '|src' : ''); });
-}
-function docCard(d, i, m) {
-  const ids = DOCB[i], cnt = k => ids.filter(j => B[j].k === k).length;
-  const ess = ids.find(j => B[j].k === 'L’essentiel');
-  const lines = ess != null ? (B[ess].x || '').split('\n').map(s => s.trim()).filter(Boolean) : [];
-  const md = m ? m.docs.find(x => x.f === d.f) : null;
-  const ncas = ids.filter(j => B[j].k === 'Cas clinique' && /^pr[ée]sentation/i.test(B[j].t)).length;
-  const btn = (k, label, n) => n ? `<button data-dx="${k}" data-doc="${i}">${label} · ${n}</button>` : '';
-  return `<article class="dcard" id="dc${i}"><div class="dh"><b data-pv="${ids[0]}" title="Lire le résumé">${esc(d.n)}</b>
-    ${md && md.ok ? '<span class="pill ok">enrichi v2</span>' : (md ? '<span class="pill">étape 1</span>' : '')}${d.c && d.c !== 'Programme' ? `<span class="pill">${esc(d.c)}</span>` : ''}</div>
-    ${lines.length ? `<ul class="ess">${lines.slice(0, 5).map(l => `<li>${esc(l.replace(/^[•\-–]\s*/, ''))}</li>`).join('')}</ul>${lines.length > 5 ? `<button class="linkbtn" data-ess="${i}">+ ${lines.length - 5} points</button>` : ''}` : ''}
-    <div class="dact">${btn('val', 'Valeurs à retenir', cnt('Valeurs à retenir'))}${btn('pie', 'Pièges', cnt('Pièges'))}${btn('cas', 'Cas cliniques', ncas)}${btn('cr', 'Comptes rendus', cnt('Compte rendu type') + cnt('Formulations du service'))}
-      <button data-pv="${ids[0]}">Lire le résumé</button><a href="${docHref(d)}">${openLabel(d)}</a></div><div class="dx"></div></article>`;
-}
-$('#cmain').addEventListener('click', e => {
-  const t = e.target;
-  if (t.dataset.ess != null) { const i = +t.dataset.ess, ess = DOCB[i].find(j => B[j].k === 'L’essentiel'); const ul = t.previousElementSibling;
-    ul.innerHTML = (B[ess].x || '').split('\n').map(s => s.trim()).filter(Boolean).map(l => `<li>${esc(l.replace(/^[•\-–]\s*/, ''))}</li>`).join(''); t.remove(); return; }
-  if (t.dataset.dx) {
-    const i = +t.dataset.doc, card = t.closest('.dcard'), dx = card.querySelector('.dx'), on = t.classList.contains('on');
-    card.querySelectorAll('[data-dx]').forEach(x => x.classList.remove('on'));
-    if (on) { dx.innerHTML = ''; return; }
-    t.classList.add('on');
-    const K = { val: ['Valeurs à retenir'], pie: ['Pièges'], cas: ['Cas clinique'], cr: ['Compte rendu type', 'Formulations du service'] }[t.dataset.dx];
-    const ids = DOCB[i].filter(j => K.includes(B[j].k));
-    dx.innerHTML = ids.map(j => /^r[ée]ponse/i.test(B[j].t) ? `<details class="rep"><summary>Afficher la réponse et la discussion</summary>${blockHTML(j)}</details>` : blockHTML(j)).join('');
-  }
-});
-function sourcesHTML(src) {
-  if (!src.length) return '<div class="card muted">Aucun cours source répertorié pour ce thème.</div>';
-  const by = new Map(); src.forEach(s => { if (!by.has(s.y)) by.set(s.y, []); by.get(s.y).push(s); });
-  let h = '';
-  by.forEach((l, y) => { h += `<div class="sec-title">${esc(y)} · ${l.length}</div><div class="card"><ul class="srcl">${l.map(s => `<li><span>${esc(s.t)}</span>${LOCAL && s.p ? `<a href="file:///${encodeURI(s.p)}" title="${esc(s.p)}">ouvrir</a>` : ''}</li>`).join('')}</ul></div>`; });
-  h += `<p class="muted small" style="margin-top:14px">Sources locales consultées pendant l’enrichissement (titres seulement). ${D.cat.planchage ? `Les ${nf(D.cat.planchage)} fichiers de planchage ne sont pas listés : ils contiennent des données de patients.` : ''}${LOCAL ? ' Les liens « ouvrir » nécessitent les disques G: (AZ DEMS) et E: (MRI Online).' : ''}</p>`;
-  return h;
-}
-
-// ---------- vue « Mises à jour v2 » ----------
 function showMaj() {
   const M = D.maj, all = M.themes.flatMap(t => t.docs), done = all.filter(d => d.ok).length, pct = Math.round(100 * done / all.length);
   const cas = all.reduce((a, d) => a + d.cas, 0), rp = all.reduce((a, d) => a + (d.rp || 0), 0);
@@ -768,8 +584,8 @@ function showMaj() {
       ${dems.length ? `<details open><summary>Face au cours DEMS · ${dems.length}</summary><ul>${dems.map(x => `<li class="dems"><span class="muted small">${esc(x.s)} — </span>${esc(x.x)}</li>`).join('')}</ul></details>` : ''}
       ${[...secs].map(([s, l]) => `<details><summary>${esc(s || 'Divers')} · ${l.length}</summary><ul>${l.map(x => `<li class="${x.dems ? 'dems' : ''}">${esc(x.x)}</li>`).join('')}</ul></details>`).join('')}</div>`;
   }
-  $('#v-maj').innerHTML = h;
-  $('#v-maj').querySelectorAll('.trow').forEach(r => r.onclick = () => $('#td' + r.dataset.t).classList.toggle('open'));
+  $('#vmaj').innerHTML = h;
+  $('#vmaj').querySelectorAll('.trow').forEach(r => r.onclick = () => $('#td' + r.dataset.t).classList.toggle('open'));
 }
 
 // ---------- thème ----------
@@ -777,7 +593,7 @@ const applyTheme = t => { if (t) document.documentElement.dataset.theme = t; els
 applyTheme(store.get('theme', ''));
 $('#theme').onclick = () => { const cur = document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   const nx = cur === 'dark' ? 'light' : 'dark'; applyTheme(nx); store.set('theme', nx); };
-load().catch(err => { $('#status').textContent = 'Erreur de chargement de l’index : ' + err.message + ' (navigateur trop ancien ? utilisez Chrome, Edge ou Firefox récents).'; console.error(err); });
+load().catch(err => { $('#status').textContent = 'Erreur de chargement de l’index : ' + err.message + ' (navigateur trop ancien ? utilisez Chrome, Edge ou Firefox récents).'; });
 </script>
 </body>
 </html>
