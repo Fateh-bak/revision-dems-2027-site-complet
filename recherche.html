@@ -142,6 +142,14 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
 .sitenav a { color: var(--muted); text-decoration: none; padding: 7px 11px; border-radius: 8px; font-size: 14.5px; font-weight: 550; white-space: nowrap; }
 .sitenav a:hover { background: var(--chip); color: var(--ink); }
 .sitenav a.on { background: var(--accent-soft); color: var(--accent); }
+.rh { margin: 4px 0 2px; font-size: 22px; color: var(--accent); }
+.themes { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; margin-top: 12px; }
+.tcard h3 { color: var(--accent); font-size: 16px; }
+.tcard ul { margin: 0; padding-left: 18px; }
+.tcard li { margin: 3px 0; font-size: 14.2px; }
+.tcard li a { color: var(--ink); text-decoration: none; }
+.tcard li a:hover { color: var(--accent); text-decoration: underline; }
+.tcard li a.w { color: var(--accent); font-size: 12px; margin-left: 4px; }
 @media (max-width: 640px) { .top h1 { display: none; } .blk td:first-child { width: 34%; } }
 </style>
 </head>
@@ -150,8 +158,7 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
   <div class="top">
     <h1><a id="brand" href="#" style="color:inherit;text-decoration:none">Bak's Radiology</a></h1>
     <div class="searchbox"><input id="q" type="search" placeholder="Pathologie, signe, mesure…  ex. kyste hydatique, « double contour », appendicite -enfant" autocomplete="off" disabled><div id="sugg"></div></div>
-    <nav class="sitenav" id="sitenav" hidden><a id="nav-cours">Résumés</a><a id="nav-rech" href="recherche.html">Recherche</a><a id="nav-prog">Progression</a></nav>
-    <a class="icon-btn" id="majbtn" href="#maj" hidden>Progression</a>
+    <nav class="sitenav" id="sitenav" hidden><a id="nav-cours" href="#resumes">Résumés</a><a id="nav-rech" href="#recherche">Recherche</a><a id="nav-prog" href="#maj">Progression</a></nav>
     <button class="icon-btn" id="theme" title="Thème clair / sombre">◐</button>
   </div>
   <div class="filters" id="filtersrow">
@@ -165,6 +172,7 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
 <main class="wrap">
   <div id="status">Chargement de l’index…</div>
   <div id="res"></div>
+  <section id="vres" hidden></section>
   <section id="vmaj" hidden></section>
 </main>
 <div id="ov"></div>
@@ -237,8 +245,10 @@ async function load() {
   initFilters();
   $('#q').disabled = false; $('#q').value = '';
   const SITE = CFG.home && !CFG.home.startsWith('__');
-  if (SITE) { $('#sitenav').hidden = false; $('#nav-cours').href = CFG.home; $('#nav-prog').href = CFG.prog; $('#brand').href = CFG.home; }
-  else if (D.maj) $('#majbtn').hidden = false;
+  $('#sitenav').hidden = false;
+  const PROG = CFG.prog && !CFG.prog.startsWith('__');
+  if (SITE) { $('#nav-cours').href = CFG.home; $('#nav-rech').href = 'recherche.html'; $('#brand').href = CFG.home; if (PROG) $('#nav-prog').href = CFG.prog; else $('#nav-prog').hidden = true; }
+  else { $('#brand').href = '#resumes'; if (!D.maj) $('#nav-prog').hidden = true; }
   window.addEventListener('hashchange', route);
   route();
 }
@@ -554,17 +564,33 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#lb').c
 // ---------- navigation : recherche / mises à jour v2 ----------
 function route() {
   let v = location.hash.slice(1);
-  if (v !== 'maj' && v !== 'recherche') v = (CFG.view && !CFG.view.startsWith('__')) ? CFG.view : 'recherche';
+  if (!['maj', 'recherche', 'resumes'].includes(v)) v = (CFG.view && !CFG.view.startsWith('__')) ? CFG.view : 'resumes';
   if (v === 'maj' && !D.maj) v = 'recherche';
-  const m = v === 'maj';
-  $('#vmaj').hidden = !m; $('#status').hidden = m; $('#res').hidden = m;
-  document.querySelectorAll('.searchbox, #filtersrow').forEach(x => x.hidden = m);
-  $('#majbtn').textContent = m ? 'Recherche' : 'Progression'; $('#majbtn').href = m ? '#recherche' : '#maj';
-  $('#nav-rech').classList.toggle('on', !m); $('#nav-prog').classList.toggle('on', m);
+  const m = v === 'maj', r = v === 'resumes', q = v === 'recherche';
+  $('#vmaj').hidden = !m; $('#vres').hidden = !r; $('#status').hidden = !q; $('#res').hidden = !q;
+  document.querySelectorAll('.searchbox, #filtersrow').forEach(x => x.hidden = !q);
+  $('#nav-cours').classList.toggle('on', r); $('#nav-rech').classList.toggle('on', q); $('#nav-prog').classList.toggle('on', m);
   if (m) showMaj();
+  else if (r) showRes();
   else { $('#status').textContent = `${D.docs.length} documents · ${nf(NB)} blocs indexés · index du ${D.built}`; run(); $('#q').focus(); }
   window.scrollTo(0, 0);
 }
+// ---------- page « Résumés par thème » (version locale) ----------
+function showRes() {
+  const ths = [...new Set(D.docs.map(d => d.th).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }));
+  const m = D.maj ? new Map(D.maj.themes.flatMap(t => t.docs.map(x => [t.th + '/' + x.f, x.ok]))) : null;
+  const sub = p => { const q = p.split('/'); return q.length > 2 ? q.slice(1, -1).join(' › ') : ''; };
+  let h = `<h2 class="rh">Résumés par thème</h2><p class="muted small">${D.docs.length} documents. Cliquez sur un titre pour le lire ici ; « Word » ouvre le fichier.</p><div class="themes">`;
+  ths.forEach(th => {
+    const docs = D.docs.map((d, i) => [d, i]).filter(([d]) => d.th === th);
+    h += `<section class="card tcard"><h3>${esc(pretty(th))}</h3><p class="muted small">${docs.length} documents</p><ul>` + docs.map(([d, i]) => {
+      const ok = m && m.get(th + '/' + d.f), sb = sub(d.p);
+      return `<li><a href="#" data-pv="${DOCB[i][0]}">${esc(d.n)}</a>${sb ? ` <small class="muted">${esc(sb)}</small>` : ''}${ok ? ' <span class="pill ok">v2</span>' : ''} <a class="w" href="${docHref(d)}" title="${openLabel(d)}">Word</a></li>`;
+    }).join('') + '</ul></section>';
+  });
+  $('#vres').innerHTML = h + '</div>';
+}
+$('#vres').addEventListener('click', e => { const p = e.target.closest('[data-pv]'); if (p) { e.preventDefault(); preview(+p.dataset.pv); } });
 function showMaj() {
   const M = D.maj, all = M.themes.flatMap(t => t.docs), done = all.filter(d => d.ok).length, pct = Math.round(100 * done / all.length);
   const cas = all.reduce((a, d) => a + d.cas, 0), rp = all.reduce((a, d) => a + (d.rp || 0), 0);
